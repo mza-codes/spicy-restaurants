@@ -1,0 +1,4 @@
+{
+    "extends": "next/core-web-vitals",
+    "eslintreact/no-unescaped-entities": "off"
+}

@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
+        rgb(var(--background-start-rgb));
+}
+
+.todo-success {
+    /* background: linear-gradient(0.2turn, rgb(250, 153, 115), rgb(245, 93, 82)); */
+    /* deleted */
+
+    /* background: linear-gradient(0.7turn, rgb(255, 62, 223), rgb(255, 0, 0)); */
+    /* rose and red */
+
+    background: linear-gradient(0.1turn, rgb(41, 235, 193), rgb(110, 255, 158));
+    /* Done */
+
+    /* background: linear-gradient(0.3turn, rgb(173, 206, 255), rgb(0, 162, 255)); */
+}
+
+.todo-pending {
+    background: linear-gradient(0.7turn, rgb(255, 173, 173), rgb(255, 196, 0));
+}
+
+.todo-deleted {
+    text-decoration: line-through;
+    background: linear-gradient(0.7turn, rgb(255, 156, 238), rgb(255, 62, 62));
+}
+
+.todo-card {
+    transition: all 400ms ease-in-out;
+}
+
+/* CSS */
+
+.col {
+    @apply flex flex-col flex-wrap;
+}
+
+.row {
+    @apply flex flex-row flex-wrap;
+}
+
+.center {
+    @apply items-center justify-center;
+}
+
+.todo-item {
+    @apply flex-1 flex-grow resize-none rounded-md bg-transparent p-2 font-semibold outline-none;
+}
+
+.input-todo {
+    @apply resize-none rounded-md bg-white p-2 font-medium outline-none shadow-md;
+}
+
+.submit {
+    @apply rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-500 font-bold;
+}
+
+.btn-1 {
+    @apply rounded-sm px-4 py-2 font-bold;
+}
+
+.icon-button {
+    @apply bg-transparent hover:bg-gray-100/20;
+    border-radius: 50%;
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
+    border-radius: 6px;
+    width: 4px;
+    background-color: rgba(0, 0, 0, 0.178);
+}
+
+textarea {
+    overflow-x: hidden;
+    scroll-padding: 12px;
+}
+
+button {
+    @apply active:scale-95 transition-transform duration-300;
+}
