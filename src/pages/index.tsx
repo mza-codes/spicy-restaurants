@@ -7,7 +7,6 @@ export default function HomePage() {
             <Head>
                 <title>Spicy | Home</title>
             </Head>
-            <Header />
             <main className="min-h-screen bg-white col center">
                 <div className="rounded-lg w-44 h-80 bg-rose-800">
                     <span className="text-white">Hi thrte</span>
