@@ -10,13 +10,12 @@ module.exports = {
             colors: {
                 primary: "#4E60FF",
                 "primary.200": "#F3F4FF",
-                "gray.200": "#EDEEF2",
+                "primary.400": "#697BFF",
                 secondary: "#2B2B43",
-            },
-            backgroundImage: {
-                "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-                "gradient-conic":
-                    "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+                "secondary.400": "#545563",
+                tertiary: "#FFF3ED",
+                "gray.200": "#EDEEF2",
+                "gray.400": "#83859C",
             },
         },
     },

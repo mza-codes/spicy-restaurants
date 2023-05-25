@@ -5,30 +5,35 @@
 /* CSS */
 
 .col {
-    @apply flex flex-col flex-wrap;
+    display: flex;
+    flex-direction: column;
 }
 
 .row {
-    @apply flex flex-row flex-wrap;
+    display: flex;
+    flex-direction: row;
 }
 
 .center {
-    @apply items-center justify-center;
+    align-items: center;
+    justify-content: center;
 }
 
-.submit {
-    @apply rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-500 font-bold;
-}
+@layer {
+    .submit {
+        @apply rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-500 font-bold;
+    }
 
-.btn-1 {
-    @apply rounded-sm px-4 py-2 font-bold;
-}
+    .btn-1 {
+        @apply rounded-sm px-4 py-2 font-bold;
+    }
 
-.icon-button {
-    @apply bg-transparent hover:bg-opacity-25;
-    border-radius: 50%;
-}
+    .icon-button {
+        @apply bg-transparent hover:bg-opacity-25;
+        border-radius: 50%;
+    }
 
-button {
-    @apply active:scale-95 transition-transform duration-300;
+    button {
+        @apply active:scale-95 transition-transform duration-300;
+    }
 }
