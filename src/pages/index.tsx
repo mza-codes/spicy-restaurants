@@ -8,7 +8,7 @@ export default function HomePage() {
             <Head>
                 <title>Spicy | Home</title>
             </Head>
-            <main>
+            <main className="col py-3 gap-5">
                 <Banner />
                 <NearBy />
             </main>

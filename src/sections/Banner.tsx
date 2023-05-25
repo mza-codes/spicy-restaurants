@@ -3,20 +3,14 @@ import BannerItem from "@/components/BannerItem";
 
 export default function Banner() {
     return (
-        <main
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                padding: "2rem 0",
-            }}
-        >
-            <section className="py-6 row center gap-4">
+        <>
+            <section className="py-2 row center gap-4">
                 {items.map((card, i) => (
                     <BannerCard key={i} {...card} />
                 ))}
             </section>
-            <section className="row gap-4 center px-1">
+
+            <section className="row gap-4 center px-1 py-2">
                 {categories.map((cat, i) => (
                     <BannerItem
                         image={`/assets/items/${cat}.png`}
@@ -26,7 +20,7 @@ export default function Banner() {
                     />
                 ))}
             </section>
-        </main>
+        </>
     );
 }
 

@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <main className={`${nunito.className}`}>
             <Header />
             <hr className="w-full" />
-            <main className={`min-h-[100dvh] max-w-6xl mx-auto`}>
+            <main className={`min-h-[100dvh] max-w-6xl mx-auto lg:px-1 px-4`}>
                 <Component {...pageProps} />
                 <ConfirmDialog />
                 <Toaster
