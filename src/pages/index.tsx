@@ -1,4 +1,5 @@
 import Banner from "@/sections/Banner";
+import NearBy from "@/sections/NearBy";
 import Head from "next/head";
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
             </Head>
             <main>
                 <Banner />
+                <NearBy />
             </main>
         </>
     );
