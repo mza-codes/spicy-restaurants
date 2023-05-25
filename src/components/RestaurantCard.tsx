@@ -15,12 +15,12 @@ export type RestaurantCardProps = {
 
 export default function RestaurantCard({ card }: RestaurantCardProps) {
     return (
-        <div className="rounded-2xl border-gray.200 border-[1px] col min-w-[220px] sm:min-w-[350px] flex-[30%]">
+        <div className="rounded-2xl border-gray.200 border-[1px] col min-w-[260px] sm:min-w-[350px] flex-[30%]">
             <div className="relative">
                 <img
                     src={card.img}
                     alt={card.title}
-                    className="overflow-hidden rounded-t-2xl max-w-full"
+                    className="overflow-hidden rounded-t-2xl max-w-full min-h-[180px] object-cover"
                 />
                 {card.featured && (
                     <span

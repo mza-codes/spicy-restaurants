@@ -3,8 +3,8 @@ import RestaurantCard from "@/components/RestaurantCard";
 
 export default function NearBy() {
     return (
-        <main className="py-4">
-            <h1 className="font-semibold text-xl py-4">Nearby Restaurants</h1>
+        <>
+            <h1 className="font-semibold text-xl py-2">Nearby Restaurants</h1>
             <section className="row gap-4">
                 {data.map((card, i) => (
                     <RestaurantCard
@@ -13,7 +13,7 @@ export default function NearBy() {
                     />
                 ))}
             </section>
-        </main>
+        </>
     );
 }
 
