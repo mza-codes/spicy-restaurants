@@ -3,8 +3,9 @@ import { Nunito } from "next/font/google";
 import type { AppProps } from "next/app";
 import ConfirmDialog from "@/components/Dialog/ConfirmDialog";
 import { Toaster } from "react-hot-toast";
+import Header from "@/components/Header";
 
-const inter = Nunito({
+const nunito = Nunito({
     subsets: ["latin"],
     display: "swap",
     weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -12,17 +13,19 @@ const inter = Nunito({
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <>
-            <main className={`min-h-[100dvh] bg-white/80 ${inter.className}`}>
+        <main className={`${nunito.className}`}>
+            <Header />
+            <hr className="w-full" />
+            <main className={`min-h-[100dvh] max-w-6xl mx-auto`}>
                 <Component {...pageProps} />
                 <ConfirmDialog />
                 <Toaster
-                    containerClassName={`${inter.className} capitalize font-semibold`}
+                    containerClassName={`${nunito.className} capitalize font-semibold`}
                     position="top-center"
                     gutter={4}
                     reverseOrder
                 />
             </main>
-        </>
+        </main>
     );
 }
