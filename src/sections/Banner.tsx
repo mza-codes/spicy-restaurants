@@ -16,6 +16,7 @@ export default function Banner() {
                     <BannerCard key={i} {...card} />
                 ))}
             </section>
+
             <section className="row gap-4 center px-1">
                 {categories.map((cat, i) => (
                     <BannerItem

@@ -3,11 +3,12 @@ import RestaurantCard from "@/components/RestaurantCard";
 
 export default function NearBy() {
     return (
-        <main>
-            <h1 className="font-semibold text-xl my-4">Nearby Restaurants</h1>
+        <main className="py-4">
+            <h1 className="font-semibold text-xl py-4">Nearby Restaurants</h1>
             <section className="row gap-4">
                 {data.map((card, i) => (
                     <RestaurantCard
+                        key={i}
                         card={{ ...card, img: `/assets/restaurants/${i + 1}.png` }}
                     />
                 ))}
@@ -18,45 +19,72 @@ export default function NearBy() {
 
 var data = [
     {
-        featured: true,
-        price: "32",
         title: "Royal Sushi House",
-        tags: <CategoryTag title={"bbq"} />,
         time: "30-40",
+        price: "32",
+        tags: (
+            <>
+                <CategoryTag title={"sushi"} />
+            </>
+        ),
+        featured: true,
     },
     {
+        title: "Burgers & Pizza",
+        time: "40-60",
+        price: "24",
+        tags: (
+            <>
+                <CategoryTag title={"burger"} />
+                <CategoryTag title={"pizza"} />
+            </>
+        ),
         featured: true,
-        price: "32",
-        title: "Royal Sushi House",
-        tags: <CategoryTag title={"bbq"} />,
-        time: "30-40",
     },
     {
-        featured: true,
-        price: "32",
-        title: "Royal Sushi House",
-        tags: <CategoryTag title={"bbq"} />,
-        time: "30-40",
+        title: "Ninja Sushi",
+        time: "20-40",
+        price: "40",
+        tags: (
+            <>
+                <CategoryTag title={"sushi"} />
+            </>
+        ),
+        featured: false,
     },
     {
-        featured: true,
-        price: "32",
-        title: "Royal Sushi House",
-        tags: <CategoryTag title={"bbq"} />,
-        time: "30-40",
+        title: "Sushi Master",
+        time: "60-70",
+        price: "49",
+        tags: (
+            <>
+                <CategoryTag title={"sushi"} />
+                <CategoryTag title={"vegan"} />
+            </>
+        ),
+        featured: false,
     },
     {
-        featured: true,
-        price: "32",
-        title: "Royal Sushi House",
-        tags: <CategoryTag title={"bbq"} />,
-        time: "30-40",
+        title: "Japanese Sushi",
+        time: "30-50",
+        price: "104",
+        tags: (
+            <>
+                <CategoryTag title={"sushi"} />
+                <CategoryTag title={"pizza"} />
+            </>
+        ),
+        featured: false,
     },
     {
-        featured: true,
-        price: "32",
-        title: "Royal Sushi House",
-        tags: <CategoryTag title={"bbq"} />,
-        time: "30-40",
+        title: "Kobe",
+        time: "20-30",
+        price: "57",
+        tags: (
+            <>
+                <CategoryTag title={"sushi"} />
+            </>
+        ),
+        featured: false,
     },
 ];

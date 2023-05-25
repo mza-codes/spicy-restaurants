@@ -21,6 +21,10 @@
     justify-content: center;
 }
 
+.lg-only {
+    @apply md:block hidden;
+}
+
 @layer {
     .submit {
         @apply rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-500 font-bold;

@@ -8,10 +8,8 @@ export default function HomePage() {
             <Head>
                 <title>Spicy | Home</title>
             </Head>
-            <main>
-                <Banner />
-                <NearBy />
-            </main>
+            <Banner />
+            <NearBy />
         </>
     );
 }

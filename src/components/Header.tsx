@@ -11,23 +11,27 @@ export default function Header() {
         <header className="bg-white px-4 h-[80px] row justify-between static w-full items-center max-w-6xl mx-auto">
             <div className="row gap-6 items-center">
                 <AppLogo />
-                <SearchBox />
+                <div className="lg-only">
+                    <SearchBox />
+                </div>
             </div>
 
             <div className="row gap-4 items-center">
-                {links.map((l, i) => (
-                    <Link
-                        href={"/"}
-                        key={l}
-                        className={`font-bold text-sm p-2 ${
-                            i === links.length - 1
-                                ? "border-l-2 border-gray.200 pl-4"
-                                : ""
-                        }`}
-                    >
-                        {l}
-                    </Link>
-                ))}
+                <div className="lg-only">
+                    {links.map((l, i) => (
+                        <Link
+                            href={"/"}
+                            key={l}
+                            className={`font-bold text-sm p-2 ${
+                                i === links.length - 1
+                                    ? "border-l-2 border-gray.200 pl-4"
+                                    : ""
+                            }`}
+                        >
+                            {l}
+                        </Link>
+                    ))}
+                </div>
                 <CartIcon />
                 <UserAvatar />
             </div>
