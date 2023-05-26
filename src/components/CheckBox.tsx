@@ -5,15 +5,15 @@ type Props = {
 
 export default function CheckBox({ label, name }: Props) {
     return (
-        <div className="flex items-center mb-4">
+        <label className="label cursor-pointer">
             <input
-                id={name}
+                name={name}
                 type="checkbox"
-                className="w-4 h-4 text-primary bg-gray.200 border-gray.200 border-2 rounded focus:ring-primary.400"
+                className="checkbox checkbox-sm accent-primary checkbox-primary"
             />
-            <label htmlFor={name} className="ml-2 text-base text-secondary">
+            <label htmlFor={name} className="ml-4 text-base text-secondary">
                 {label}
             </label>
-        </div>
+        </label>
     );
 }

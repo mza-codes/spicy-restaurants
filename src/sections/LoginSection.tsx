@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export default function LoginSection() {
     return (
-        <div className="col gap-2 flex-[40%] py-8 px-4 lg:px-28 lg:max-w-xl max-w-md min-h-[inherit] center relative">
-            <Link className="absolute left-2 top-6" href={"/"}>
+        <div className="col gap-2 flex-[1] py-8 px-4 lg:px-28 lg:max-w-xl max-w-md min-h-[inherit] justify-between">
+            <Link href={"/"}>
                 <AppLogo />
             </Link>
             <div className="col gap-8 w-full">
@@ -17,13 +17,12 @@ export default function LoginSection() {
                 </span>
                 <form
                     onSubmit={(e) => e.preventDefault()}
-                    className="col w-full items-start gap-6"
+                    className="col w-full items-start gap-5"
                 >
                     {fields.map((field) => (
                         <InputBox
                             key={field.label}
                             {...field}
-                            required
                             containerClassName="flex-grow w-full"
                         />
                     ))}
@@ -38,7 +37,7 @@ export default function LoginSection() {
                     </Button>
                 </form>
             </div>
-            <span className="text-secondary.400 text-sm text-center font-normal absolute bottom-8 right-1 left-1">
+            <span className="text-secondary.400 text-sm text-center font-normal">
                 Don't have an account?{" "}
                 <Link
                     className="font-semibold text-primary hover:text-primary/70"

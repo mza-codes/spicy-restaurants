@@ -1,6 +1,6 @@
 export default function LoginPromoSection() {
     return (
-        <section className="bg-primary.400 min-h-[inherit] flex-[60%] hidden lg:flex flex-col flex-wrap justify-evenly items-center px-4">
+        <section className="bg-primary.400 min-h-[inherit] flex-[2] hidden lg:flex flex-col flex-wrap justify-evenly items-center px-4">
             <div className="relative">
                 <img src="/assets/login-promo-2.png" alt="login promo" />
             </div>

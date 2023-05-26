@@ -1,15 +1,9 @@
 import "@/styles/globals.css";
-import { Nunito } from "next/font/google";
 import type { AppProps } from "next/app";
 import ConfirmDialog from "@/components/Dialog/ConfirmDialog";
 import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header";
-
-const nunito = Nunito({
-    subsets: ["latin"],
-    display: "swap",
-    weight: ["300", "400", "500", "600", "700", "800", "900"],
-});
+import { nunito } from "@/lib/fonts";
 
 type LayoutProps = AppProps & {
     Component: {
