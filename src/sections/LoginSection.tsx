@@ -2,9 +2,24 @@ import Button from "@/components/Button";
 import CheckBox from "@/components/CheckBox";
 import InputBox, { InputBoxProps } from "@/components/InputBox";
 import AppLogo from "@/components/sub-components/AppLogo";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { FormEvent } from "react";
 
 export default function LoginSection() {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = new FormData(e.currentTarget);
+        const res = await signIn("credentials", {
+            redirect: false,
+            callbackUrl: "/",
+            email: form.get("email") as string,
+            password: form.get("password") as string,
+        });
+
+        console.log("res () => ", res);
+    };
+
     return (
         <div className="col gap-2 flex-[1] py-8 px-4 lg:px-28 lg:max-w-xl max-w-md min-h-[inherit] justify-between">
             <Link href={"/"}>
@@ -15,10 +30,7 @@ export default function LoginSection() {
                 <span className="text-secondary.400 text-sm">
                     Sign in with your data that you entered during your registration.
                 </span>
-                <form
-                    onSubmit={(e) => e.preventDefault()}
-                    className="col w-full items-start gap-5"
-                >
+                <form onSubmit={handleSubmit} className="col w-full items-start gap-5">
                     {fields.map((field) => (
                         <InputBox
                             key={field.label}
