@@ -29,6 +29,14 @@ img {
     max-width: 100%;
 }
 
+.border {
+    border: 1px solid red;
+}
+
+button {
+    @apply active:scale-95 transition-transform duration-300;
+}
+
 @layer {
     .submit {
         @apply rounded-sm bg-green-600 px-4 py-2 text-white hover:bg-green-500 font-bold;
@@ -41,9 +49,5 @@ img {
     .icon-button {
         @apply bg-transparent hover:bg-opacity-25;
         border-radius: 50%;
-    }
-
-    button {
-        @apply active:scale-95 transition-transform duration-300;
     }
 }
