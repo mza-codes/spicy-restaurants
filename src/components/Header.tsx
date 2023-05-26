@@ -3,6 +3,7 @@ import AppLogo from "./sub-components/AppLogo";
 import SearchBox from "./sub-components/SearchBox";
 import CartIcon from "./sub-components/CartIcon";
 import UserAvatar from "./sub-components/UserAvatar";
+import MenuButton from "./sub-components/MenuButton";
 
 const links = ["Restaurants", "Deals", "My orders"];
 
@@ -20,7 +21,7 @@ export default function Header() {
                 <div className="lg-only">
                     {links.map((l, i) => (
                         <Link
-                            href={"/"}
+                            href={"/login"}
                             key={l}
                             className={`font-bold text-sm p-2 ${
                                 i === links.length - 1
@@ -34,6 +35,10 @@ export default function Header() {
                 </div>
                 <CartIcon />
                 <UserAvatar />
+                <div className="flex flex-row center gap-2 md:hidden">
+                    <div className="w-[2px] bg-gray.200 h-full min-h-[30px]"></div>
+                    <MenuButton />
+                </div>
             </div>
         </header>
     );

@@ -20,13 +20,17 @@ type LayoutProps = AppProps & {
 export default function App({ Component, pageProps }: LayoutProps) {
     return (
         <main className={`${nunito.className}`}>
-            {Component?._uniqueLayout ? null : <Header />}
-            <hr className="w-full" />
+            {Component?._uniqueLayout ? null : (
+                <>
+                    <Header />
+                    <hr className="w-full" />
+                </>
+            )}
             <main
                 className={`${
                     Component?._uniqueLayout
                         ? ""
-                        : "min-h-[100dvh] max-w-6xl mx-auto lg:px-1 px-4"
+                        : "min-h-[100dvh] max-w-6xl mx-auto px-4"
                 }`}
             >
                 <Component {...pageProps} />
