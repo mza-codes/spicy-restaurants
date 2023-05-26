@@ -1,8 +1,9 @@
-export interface Todo {
-    id: string;
-    todo: string;
-    completed: boolean;
-    userId: string;
+export interface Restaurant {
     title: string;
-    deleted: boolean;
+    time: string;
+    price: string;
+    tags: tags[];
+    featured: boolean;
 }
+
+type tags = "pizza" | "burger" | "bbq" | "sushi" | "vegan" | "desserts";
