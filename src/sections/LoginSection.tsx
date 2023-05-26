@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function LoginSection() {
     return (
-        <div className="col gap-2 flex-[40%] py-8 px-4 md:px-20 max-w-[480px] min-h-[inherit] justify-between">
+        <div className="col gap-2 flex-[1] py-8 px-4 lg:px-28 lg:max-w-xl max-w-md min-h-[inherit] justify-between">
             <Link href={"/"}>
                 <AppLogo />
             </Link>
@@ -17,7 +17,7 @@ export default function LoginSection() {
                 </span>
                 <form
                     onSubmit={(e) => e.preventDefault()}
-                    className="col w-full items-start gap-8"
+                    className="col w-full items-start gap-5"
                 >
                     {fields.map((field) => (
                         <InputBox

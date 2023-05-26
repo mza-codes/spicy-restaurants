@@ -18,7 +18,7 @@ export default function InputBox({ label, containerClassName, ...props }: InputB
                 {label}
             </label>
             <input
-                className="rounded-lg border-gray.200 p-3 border-[1px] outline-primary.400"
+                className="rounded-lg border-gray.200 p-3 border-[1px] outline-primary.400 placeholder:text-gray.400 text-sm"
                 {...props}
             />
         </div>

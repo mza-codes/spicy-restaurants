@@ -1,4 +1,4 @@
-type tags = "pizza" | "burger" | "bbq" | "sushi" | "vegan" | "desserts";
+import { tags } from "@/types";
 
 type Props = {
     title: tags;
