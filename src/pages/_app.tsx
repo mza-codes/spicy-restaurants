@@ -4,6 +4,7 @@ import ConfirmDialog from "@/components/Dialog/ConfirmDialog";
 import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header";
 import { nunito } from "@/lib/fonts";
+import { SessionProvider } from "next-auth/react";
 
 type LayoutProps = AppProps & {
     Component: {
@@ -11,31 +12,36 @@ type LayoutProps = AppProps & {
     };
 };
 
-export default function App({ Component, pageProps }: LayoutProps) {
+export default function App({
+    Component,
+    pageProps: { session, ...pageProps },
+}: LayoutProps) {
     return (
-        <main className={`${nunito.className}`}>
-            {Component?._uniqueLayout ? null : (
-                <>
-                    <Header />
-                    <hr className="w-full" />
-                </>
-            )}
-            <main
-                className={`${
-                    Component?._uniqueLayout
-                        ? ""
-                        : "min-h-[100dvh] max-w-6xl mx-auto px-4"
-                }`}
-            >
-                <Component {...pageProps} />
-                <ConfirmDialog />
-                <Toaster
-                    containerClassName={`${nunito.className} capitalize font-semibold`}
-                    position="top-center"
-                    gutter={4}
-                    reverseOrder
-                />
+        <SessionProvider session={session}>
+            <main className={`${nunito.className}`}>
+                {Component?._uniqueLayout ? null : (
+                    <>
+                        <Header />
+                        <hr className="w-full" />
+                    </>
+                )}
+                <main
+                    className={`${
+                        Component?._uniqueLayout
+                            ? ""
+                            : "min-h-[calc(100dvh-81px)] max-w-6xl mx-auto px-4"
+                    }`}
+                >
+                    <Component {...pageProps} />
+                    <ConfirmDialog />
+                    <Toaster
+                        containerClassName={`${nunito.className} capitalize font-semibold`}
+                        position="top-center"
+                        gutter={4}
+                        reverseOrder
+                    />
+                </main>
             </main>
-        </main>
+        </SessionProvider>
     );
 }

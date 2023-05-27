@@ -1,1 +1,1 @@
-export const routes = ["/", "/login", "/profile"];
+export const routes = ["/", "/login", "/profile"] as const;

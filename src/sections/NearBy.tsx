@@ -1,5 +1,6 @@
 import CategoryTag from "@/components/CategoryTag";
 import RestaurantCard from "@/components/RestaurantCard";
+import SubHeading from "@/components/SubHeading";
 import { Restaurant } from "@/types";
 
 type NearByProps = {
@@ -9,7 +10,7 @@ type NearByProps = {
 export default function NearBy({ restaurants }: NearByProps) {
     return (
         <>
-            <h1 className="font-semibold text-xl py-2">Nearby Restaurants</h1>
+            <SubHeading title="Nearby Restaurants" />
             <section className="row gap-4">
                 {restaurants.map((card, i) => (
                     <RestaurantCard

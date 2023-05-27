@@ -4,14 +4,17 @@ import SearchBox from "./sub-components/SearchBox";
 import CartIcon from "./sub-components/CartIcon";
 import UserAvatar from "./sub-components/UserAvatar";
 import MenuButton from "./sub-components/MenuButton";
+import { routes } from "@/lib/routes";
 
-const links = ["Restaurants", "Deals", "My orders"];
+const navLinks = ["Restaurants", "Deals", "My orders"];
 
 export default function Header() {
     return (
         <header className="bg-white px-4 h-[80px] row justify-between static w-full items-center max-w-6xl mx-auto">
             <div className="row gap-6 items-center">
-                <AppLogo />
+                <Link href={"/"}>
+                    <AppLogo />
+                </Link>
                 <div className="lg-only">
                     <SearchBox />
                 </div>
@@ -19,13 +22,13 @@ export default function Header() {
 
             <div className="row gap-4 items-center">
                 <div className="lg-only">
-                    {links.map((l, i) => (
+                    {navLinks.map((l, i) => (
                         <Link
-                            href={"/login"}
+                            href={routes[i]}
                             key={l}
-                            className={`font-bold text-sm p-2 ${
-                                i === links.length - 1
-                                    ? "border-l-2 border-gray.200 pl-4"
+                            className={`font-bold text-sm p-2 hover:text-secondary.400 ${
+                                i === navLinks.length - 1
+                                    ? "border-l-2 border-gray.200"
                                     : ""
                             }`}
                         >
