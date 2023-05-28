@@ -63,7 +63,7 @@ export default function ImageUploader({}: Props) {
             <ButtonV2 onClick={() => setState(initial)} disabled={!state.ok} hideBorder>
                 Remove
             </ButtonV2>
-            <span className="absolute text-red-400 text-xs font-semibold bottom-0 left-1 capitalize">
+            <span className="absolute text-error text-xs font-semibold bottom-0 left-1 capitalize">
                 {state.err}
             </span>
         </div>

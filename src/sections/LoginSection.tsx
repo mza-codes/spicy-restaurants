@@ -1,25 +1,30 @@
 import Button from "@/components/Button";
 import CheckBox from "@/components/CheckBox";
-import InputBox, { InputBoxProps, InputBoxV1 } from "@/components/InputBox";
+import InputBox, { InputBoxProps } from "@/components/InputBox";
 import AppLogo from "@/components/sub-components/AppLogo";
+import { loginSchema } from "@/lib/schema";
 import useAuthStore from "@/store/useAuthStore";
+import { LoginData } from "@/types";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Spin } from "antd";
 import Link from "next/link";
-import { FormEvent, useRef } from "react";
+import { useForm } from "react-hook-form";
 
 export default function LoginSection() {
     const signIn = useAuthStore((s) => s.signInWithPassword);
     const [loading, setLoading] = useAuthStore((s) => [s.loading, s.setLoading]);
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        setLoading(true);
-        e.preventDefault();
-        const form = new FormData(e.currentTarget);
-        const res = await signIn({
-            email: form.get("email") as string,
-            password: form.get("password") as string,
-        });
+    const {
+        handleSubmit,
+        register,
+        formState: { errors },
+    } = useForm<LoginData>({
+        resolver: yupResolver(loginSchema),
+    });
 
+    const onSubmit = async (formData: LoginData) => {
+        setLoading(true);
+        const res = await signIn(formData);
         console.log("res () => ", res);
         setLoading(false);
     };
@@ -34,13 +39,17 @@ export default function LoginSection() {
                 <span className="text-secondary.400 text-sm">
                     Sign in with your data that you entered during your registration.
                 </span>
-                <form onSubmit={handleSubmit} className="col w-full items-start gap-5">
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="col w-full items-start gap-5"
+                >
                     {formFields.map((field) => (
-                        <InputBoxV1
-                            required
+                        <InputBox
                             key={field.label}
-                            {...field}
                             containerClassName="flex-grow w-full"
+                            {...field}
+                            {...register(field.name)}
+                            error={errors?.[field.name]?.message}
                         />
                     ))}
 
@@ -68,7 +77,7 @@ export default function LoginSection() {
     );
 }
 
-export var formFields: InputBoxProps[] = [
+export var formFields: InputBoxProps<keyof LoginData>[] = [
     {
         label: "Email",
         placeholder: "name@example.com",
@@ -77,7 +86,7 @@ export var formFields: InputBoxProps[] = [
     },
     {
         label: "Password",
-        placeholder: "min. 8 characters",
+        placeholder: "min. 6 characters",
         name: "password",
         type: "text",
     },

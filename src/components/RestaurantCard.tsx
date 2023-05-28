@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FiClock } from "react-icons/fi";
+import { FiClock, FiShoppingBag } from "react-icons/fi";
 import { BsDot } from "react-icons/bs";
 
 export type RestaurantCardProps = {
@@ -34,8 +34,8 @@ export default function RestaurantCard({ card }: RestaurantCardProps) {
             <div className="p-4 col gap-4">
                 <div>
                     <span className="text-lg font-bold">{card.title}</span>
-                    <button className="float-right">
-                        <img src={"/assets/Bag.svg"} alt="bag_icon" />
+                    <button className="float-right text-primary.200 hover:text-primary.400">
+                        <FiShoppingBag size={22} />
                     </button>
                 </div>
                 <div className="text-gray.400 row gap-1 items-center font-semibold">
