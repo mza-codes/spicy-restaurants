@@ -1,14 +1,14 @@
 import { DetailedHTMLProps, InputHTMLAttributes, forwardRef, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-export type InputBoxProps = DetailedHTMLProps<
+export type InputBoxProps<T = string> = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
 > & {
     label: string;
     containerClassName?: string;
     error?: string;
-    name: string;
+    name: T;
 };
 
 const InputBox = forwardRef<HTMLInputElement, InputBoxProps>(function InputBox(
@@ -42,7 +42,7 @@ const InputBox = forwardRef<HTMLInputElement, InputBoxProps>(function InputBox(
                     {show ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                 </button>
             )}
-            <span className="text-red-400 capitalize text-xs ml-1">{error || " "}</span>
+            <span className="text-red-400 capitalize text-xs ml-1">{error}</span>
         </div>
     );
 });
@@ -76,7 +76,7 @@ export function InputBoxV1({
             {isPassword && (
                 <button
                     type="button"
-                    className="absolute right-1 bottom-1 p-2 text-gray.200 hover:text-gray-400/80 text-2xl"
+                    className="absolute right-1 bottom-2 p-2 text-gray.200 hover:text-gray-400/80 text-2xl"
                     onClick={() => setShow((c) => !c)}
                 >
                     {show ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
