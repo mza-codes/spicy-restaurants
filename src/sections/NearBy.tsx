@@ -18,13 +18,6 @@ export default function NearBy({ restaurants }: NearByProps) {
                         card={{
                             ...card,
                             img: `/assets/restaurants/${i + 1}.png`,
-                            tags: (
-                                <>
-                                    {card.tags.map((tag, i) => (
-                                        <CategoryTag title={tag} key={`${i}-${tag}`} />
-                                    ))}
-                                </>
-                            ),
                         }}
                     />
                 ))}

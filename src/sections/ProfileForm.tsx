@@ -2,7 +2,7 @@ import { ButtonV2 } from "@/components/Button";
 import CheckBox, { CheckBoxProps } from "@/components/CheckBox";
 import InputBox, { InputBoxProps } from "@/components/InputBox";
 import { DBUser } from "@/models/User";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -13,6 +13,7 @@ import axios from "axios";
 import { NotificationsKey } from "@/types";
 import useAuth from "@/hooks/useAuth";
 import ImageUploader from "@/components/ImageUploader";
+import { logOut } from "@/store/useAuthStore";
 
 type Props = {
     user: DBUser;
@@ -60,6 +61,7 @@ export default function ProfileForm({ user }: Props) {
                 password_changes,
                 restaurants,
                 status,
+                email,
                 ...other
             } = formData;
 
@@ -148,7 +150,7 @@ export default function ProfileForm({ user }: Props) {
             <div className="row gap-4 justify-between items-center w-full p-4">
                 <ButtonV2
                     disabled={loading}
-                    onClick={() => signOut({ redirect: false })}
+                    onClick={logOut}
                     color="#FF5C60"
                     className="w-full sm:w-fit"
                 >

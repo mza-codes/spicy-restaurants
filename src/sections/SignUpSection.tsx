@@ -78,11 +78,11 @@ export default function SignUpSection() {
 }
 
 var fields: InputBoxProps<keyof SignupData>[] = [
-    ...formFields,
     {
         label: "Name",
         placeholder: "Martin Harry",
         name: "name",
         type: "text",
     },
+    ...formFields,
 ];

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { LoginData, SignupData } from "@/types";
 
@@ -36,8 +36,14 @@ const useAuthStore = create<AuthStore>((set, get) => ({
             return false;
         }
     },
+    async signOut() {
+        get().setLoading(true);
+        await signOut({ redirect: false });
+        get().setLoading(false);
+    },
 }));
 
+export const logOut = useAuthStore.getState().signOut;
 export default useAuthStore;
 
 interface AuthStore {
@@ -45,4 +51,5 @@ interface AuthStore {
     setLoading: (bool: boolean) => void;
     signInWithPassword: (formData: LoginData) => Promise<boolean>;
     signUpWithPassword: (formData: SignupData) => Promise<boolean>;
+    signOut: () => void;
 }
