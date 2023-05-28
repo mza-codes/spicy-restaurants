@@ -1,44 +1,19 @@
-import mongoose from "mongoose";
-type Mongoose = typeof mongoose;
+import User from "@/models/User";
+import { SignupData } from "@/types";
 
-const MONGO_URL = process.env.DB;
+export const db = {
+    async createUser(data: SignupData): Promise<[any, any]> {
+        let [err, result]: [any, any] = [null, null];
+        try {
+            const user = await User.findOne({ email: data.email }).select("-password");
+            if (user || user?._id) throw new Error("User Exists, Please Login!");
 
-if (!MONGO_URL) throw new Error("Variable 'DB' not found in env!");
-
-type Mongo = {
-    conn: null | Mongoose;
-    promise: null | Promise<Mongoose>;
+            const newUser = await User.create(data);
+            result = newUser;
+        } catch (error: any) {
+            err = error;
+        } finally {
+            return [err, result];
+        }
+    },
 };
-
-type WithMongo = typeof globalThis & {
-    _mongoose: {
-        conn: null | any;
-        promise: null | any;
-    };
-};
-
-let cached: Mongo = (global as any)._mongoose as Mongo;
-
-if (!cached) {
-    cached = (global as WithMongo)._mongoose = { conn: null, promise: null };
-}
-
-async function dbConnect() {
-    if (cached.conn) {
-        return cached.conn;
-    }
-
-    if (!cached.promise) {
-        const opts = {
-            bufferCommands: false,
-        };
-
-        cached.promise = mongoose.connect(MONGO_URL!, opts).then((mongoose) => {
-            return mongoose;
-        });
-    }
-    cached.conn = await cached.promise;
-    return cached.conn;
-}
-
-export default dbConnect;

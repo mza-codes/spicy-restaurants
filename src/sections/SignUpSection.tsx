@@ -7,20 +7,19 @@ import { Spin } from "antd";
 import Link from "next/link";
 import { FormEvent } from "react";
 
-export default function LoginSection() {
-    const signIn = useAuthStore((s) => s.signInWithPassword);
+export default function SignUpSection() {
+    const signUpWithPassword = useAuthStore((s) => s.signUpWithPassword);
     const [loading, setLoading] = useAuthStore((s) => [s.loading, s.setLoading]);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         setLoading(true);
         e.preventDefault();
         const form = new FormData(e.currentTarget);
-        const res = await signIn({
+        const res = await signUpWithPassword({
             email: form.get("email") as string,
             password: form.get("password") as string,
+            name: form.get("name") as string,
         });
-
-        console.log("res () => ", res);
         setLoading(false);
     };
 
@@ -30,12 +29,12 @@ export default function LoginSection() {
                 <AppLogo />
             </Link>
             <div className="col gap-8 w-full">
-                <h2 className="font-bold text-6xl text-secondary">Login</h2>
+                <h2 className="font-bold text-6xl text-secondary">SignUp</h2>
                 <span className="text-secondary.400 text-sm">
-                    Sign in with your data that you entered during your registration.
+                    Create an account right away to access our full features.
                 </span>
                 <form onSubmit={handleSubmit} className="col w-full items-start gap-5">
-                    {formFields.map((field) => (
+                    {fields.map((field) => (
                         <InputBox
                             required
                             key={field.label}
@@ -47,28 +46,34 @@ export default function LoginSection() {
                     <CheckBox label="Keep me logged in" name="session" />
 
                     <Button disabled={loading} className="w-full" bg type="submit">
-                        Login
+                        SignUp
                     </Button>
                     {loading && <Spin className="mx-auto py-2" />}
                     <Button className="w-full" type="button">
-                        Forgot password
+                        Subscribe to Newsletter
                     </Button>
                 </form>
             </div>
             <span className="text-secondary.400 text-sm text-center font-normal">
-                Don&apos;t have an account?{" "}
+                Already have an account?{" "}
                 <Link
                     className="font-semibold text-primary hover:text-primary/70"
-                    href={"/signup"}
+                    href={"/login"}
                 >
-                    <b>Sign up</b>
+                    <b>Login</b>
                 </Link>
             </span>
         </div>
     );
 }
 
-export var formFields: InputBoxProps[] = [
+var fields: InputBoxProps[] = [
+    {
+        label: "Name",
+        placeholder: "Martin Harry",
+        name: "name",
+        type: "text",
+    },
     {
         label: "Email",
         placeholder: "name@example.com",

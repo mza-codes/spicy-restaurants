@@ -38,6 +38,7 @@ export default function App({
                         containerClassName={`${nunito.className} capitalize font-semibold`}
                         position="top-center"
                         gutter={4}
+                        toastOptions={{ duration: 2400 }}
                         reverseOrder
                     />
                 </main>

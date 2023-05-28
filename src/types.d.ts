@@ -7,3 +7,10 @@ export interface Restaurant {
 }
 
 type tags = "pizza" | "burger" | "bbq" | "sushi" | "vegan" | "desserts";
+
+export type LoginData = {
+    email: string;
+    password: string;
+};
+
+export type SignupData = LoginData & Record<"name", string>;

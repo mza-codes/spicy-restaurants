@@ -1,4 +1,5 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes, useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export type InputBoxProps = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
@@ -8,7 +9,14 @@ export type InputBoxProps = DetailedHTMLProps<
     containerClassName?: string;
 };
 
-export default function InputBox({ label, containerClassName, ...props }: InputBoxProps) {
+export default function InputBox({
+    label,
+    containerClassName,
+    type,
+    ...props
+}: InputBoxProps) {
+    const [show, setShow] = useState(false);
+    const isPassword = props?.name?.includes("password") ?? false;
     return (
         <div className={`relative col gap-2 ${containerClassName ?? ""}`}>
             <label
@@ -18,9 +26,21 @@ export default function InputBox({ label, containerClassName, ...props }: InputB
                 {label}
             </label>
             <input
-                className="rounded-lg border-gray.200 p-3 border-[1px] outline-primary.400 placeholder:text-gray.400 text-sm"
+                className={`rounded-lg border-gray.200 p-3 border-[1px] outline-primary.400 placeholder:text-gray.400 text-sm ${
+                    isPassword ? "pr-12" : ""
+                }`}
+                type={isPassword ? (show ? "text" : "password") : type}
                 {...props}
             />
+            {isPassword && (
+                <button
+                    type="button"
+                    className="absolute right-1 bottom-1 p-2 text-gray.200 hover:text-gray-400/80 text-2xl"
+                    onClick={() => setShow((c) => !c)}
+                >
+                    {show ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </button>
+            )}
         </div>
     );
 }

@@ -39,13 +39,23 @@ userSchema.methods.comparePwd = async function (password: string) {
     return await bcrypt.compare(password, this.password);
 };
 
-const model = mongoose.model("User", userSchema);
-type USER = typeof model;
-
-function getUser(): USER {
-    return mongoose.models?.["User"] ?? model;
+function getUser() {
+    // ts errors popping up
+    if (mongoose.models?.User) return mongoose.models?.User;
+    return mongoose.model("User", userSchema);
 }
 
-const User = getUser();
-
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default User;
+
+// @update after change
+export type DBUser = {
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+} & {
+    email: string;
+    password: string;
+    name: string;
+    verified: boolean;
+    change_count: any;
+};
