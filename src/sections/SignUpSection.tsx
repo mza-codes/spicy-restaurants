@@ -1,25 +1,31 @@
 import Button from "@/components/Button";
 import CheckBox from "@/components/CheckBox";
-import InputBox, { InputBoxProps, InputBoxV1 } from "@/components/InputBox";
+import InputBox, { InputBoxProps } from "@/components/InputBox";
 import AppLogo from "@/components/sub-components/AppLogo";
+import { signupSchema } from "@/lib/schema";
 import useAuthStore from "@/store/useAuthStore";
+import { SignupData } from "@/types";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Spin } from "antd";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { useForm } from "react-hook-form";
+import { formFields } from "./LoginSection";
 
 export default function SignUpSection() {
     const signUpWithPassword = useAuthStore((s) => s.signUpWithPassword);
     const [loading, setLoading] = useAuthStore((s) => [s.loading, s.setLoading]);
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const {
+        handleSubmit,
+        register,
+        formState: { errors },
+    } = useForm<SignupData>({
+        resolver: yupResolver(signupSchema),
+    });
+
+    const onSubmit = async (formData: SignupData) => {
         setLoading(true);
-        e.preventDefault();
-        const form = new FormData(e.currentTarget);
-        const res = await signUpWithPassword({
-            email: form.get("email") as string,
-            password: form.get("password") as string,
-            name: form.get("name") as string,
-        });
+        const res = await signUpWithPassword(formData);
         setLoading(false);
     };
 
@@ -33,13 +39,17 @@ export default function SignUpSection() {
                 <span className="text-secondary.400 text-sm">
                     Create an account right away to access our full features.
                 </span>
-                <form onSubmit={handleSubmit} className="col w-full items-start gap-5">
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="col w-full items-start gap-5"
+                >
                     {fields.map((field) => (
-                        <InputBoxV1
-                            required
+                        <InputBox
                             key={field.label}
-                            {...field}
                             containerClassName="flex-grow w-full"
+                            {...field}
+                            {...register(field.name)}
+                            error={errors[field.name]?.message}
                         />
                     ))}
 
@@ -67,23 +77,12 @@ export default function SignUpSection() {
     );
 }
 
-var fields: InputBoxProps[] = [
+var fields: InputBoxProps<keyof SignupData>[] = [
     {
         label: "Name",
         placeholder: "Martin Harry",
         name: "name",
         type: "text",
     },
-    {
-        label: "Email",
-        placeholder: "name@example.com",
-        name: "email",
-        type: "email",
-    },
-    {
-        label: "Password",
-        placeholder: "min. 8 characters",
-        name: "password",
-        type: "text",
-    },
+    ...formFields,
 ];

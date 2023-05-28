@@ -4,6 +4,8 @@ export interface Restaurant {
     price: string;
     tags: tags[];
     featured: boolean;
+    img: string;
+    count: number;
 }
 
 type tags = "pizza" | "burger" | "bbq" | "sushi" | "vegan" | "desserts";

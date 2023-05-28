@@ -31,6 +31,12 @@ img {
 
 .border {
     border: 1px solid red;
+    /* original primary.200 = #F3F4FF */
+    color: #eaebf7;
+}
+
+.btn-animate {
+    @apply active:scale-90 transition-transform duration-300;
 }
 
 button {

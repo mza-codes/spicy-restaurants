@@ -1,10 +1,10 @@
 import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from "react";
 
-export type CheckBoxProps = DetailedHTMLProps<
+export type CheckBoxProps<T = string> = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
 > & {
-    name: string;
+    name: T;
     label: string;
     className?: string;
 };
