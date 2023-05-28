@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { NotificationsKey } from "@/types";
+
+type NotificationsField = Record<NotificationsKey, boolean>;
 
 const userSchema = new mongoose.Schema(
     {
@@ -16,9 +19,29 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
+        lname: {
+            type: String,
+            default: "",
+        },
+        phone: {
+            type: String,
+            default: null,
+        },
         verified: {
             type: Boolean,
             default: false,
+        },
+        notifications: {
+            type: Object,
+            default: {
+                // ref NotificationsField
+                deals: true,
+                newsletter: false,
+                offers: true,
+                password_changes: true,
+                restaurants: true,
+                status: true,
+            },
         },
         change_count: {
             type: Object,
@@ -52,10 +75,14 @@ export default User;
 export type DBUser = {
     createdAt: NativeDate;
     updatedAt: NativeDate;
+    _id: string;
 } & {
-    email: string;
-    password: string;
     name: string;
+    email: string;
+    phone: string;
+    lname: string;
+    password: string;
     verified: boolean;
-    change_count: any;
+    notifications: NotificationsField;
+    change_count: { password: number; email: number; name: number };
 };

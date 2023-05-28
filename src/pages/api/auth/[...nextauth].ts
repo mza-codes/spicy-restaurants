@@ -54,7 +54,23 @@ const nextAuth: NextAuthOptions = {
             console.log("@SignIn params => ", params);
             return true;
         },
-        jwt: async ({ user, token, account }) => {
+        jwt: async (params) => {
+            const { user, token, account, trigger, profile } = params;
+            if (trigger === "update") {
+                const currentUser = await User.findOne({ email: token.email }).select(
+                    "-password"
+                );
+                console.log("trigger is update => cuurentUSER => ", {
+                    currentUser,
+                    params,
+                });
+
+                return {
+                    ...token,
+                    ...user,
+                    ...currentUser?._doc,
+                };
+            }
             // @ts-ignore
             const payload = { ...token, ...user };
 

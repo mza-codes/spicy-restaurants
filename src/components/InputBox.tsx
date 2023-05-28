@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, InputHTMLAttributes, useState } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes, forwardRef, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export type InputBoxProps = DetailedHTMLProps<
@@ -7,14 +7,14 @@ export type InputBoxProps = DetailedHTMLProps<
 > & {
     label: string;
     containerClassName?: string;
+    error?: string;
+    name: string;
 };
 
-export default function InputBox({
-    label,
-    containerClassName,
-    type,
-    ...props
-}: InputBoxProps) {
+const InputBox = forwardRef<HTMLInputElement, InputBoxProps>(function InputBoxV1(
+    { label, containerClassName, type, error, ...props },
+    ref
+) {
     const [show, setShow] = useState(false);
     const isPassword = props?.name?.includes("password") ?? false;
     return (
@@ -26,6 +26,7 @@ export default function InputBox({
                 {label}
             </label>
             <input
+                ref={ref}
                 className={`rounded-lg border-gray.200 p-3 border-[1px] outline-primary.400 placeholder:text-gray.400 text-sm ${
                     isPassword ? "pr-12" : ""
                 }`}
@@ -41,6 +42,9 @@ export default function InputBox({
                     {show ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                 </button>
             )}
+            <span className="text-red-400 capitalize text-xs ml-1">{error || " "}</span>
         </div>
     );
-}
+});
+
+export default InputBox;

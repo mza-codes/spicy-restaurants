@@ -14,3 +14,10 @@ export type LoginData = {
 };
 
 export type SignupData = LoginData & Record<"name", string>;
+export type NotificationsKey =
+    | "deals"
+    | "newsletter"
+    | "offers"
+    | "password_changes"
+    | "restaurants"
+    | "status";

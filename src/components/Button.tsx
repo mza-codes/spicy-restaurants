@@ -16,6 +16,7 @@ export default function Button({
     outline,
     bg,
     disabled,
+    type,
     ...props
 }: Props) {
     return (
@@ -25,6 +26,7 @@ export default function Button({
                 bg ? "bg-primary text-white" : "text-primary"
             } ${disabled ? "animate-pulse cursor-not-allowed" : ""}`}
             disabled={disabled}
+            type={type ?? "button"}
         >
             {children}
         </button>
@@ -38,6 +40,7 @@ export function ButtonV2({
     hideBorder,
     color,
     bg,
+    type,
     ...props
 }: Props) {
     return (
@@ -51,6 +54,7 @@ export function ButtonV2({
                 hideBorder ? "disabled:border-none" : ""
             }`}
             style={{ color: color, borderColor: color }}
+            type={type ?? "button"}
         >
             {children}
         </button>
