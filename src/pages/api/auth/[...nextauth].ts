@@ -1,6 +1,8 @@
-import { randomUUID } from "crypto";
+import User from "@/models/User";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { connectDB } from "@/lib/mongo";
 
 export const authCookie = `_sa_spicy_.app` as const;
 const isProduction = process.env.NODE_ENV === "production";
@@ -14,16 +16,22 @@ const nextAuth: NextAuthOptions = {
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials, req) {
-                console.log("async authorize(): ", { credentials, req });
                 try {
-                    return {
-                        email: credentials?.email,
-                        id: randomUUID(),
-                        name: "PERS0N",
+                    const { email, password } = credentials as {
+                        email: string;
+                        password: string;
                     };
+                    const user = await User.findOne({ email: email });
+                    if (!user || !email || !password)
+                        throw new Error("User does not exist!");
+
+                    if (await bcrypt.compare(password, user?.password)) {
+                        return user?._doc;
+                    }
+                    throw new Error("Invalid Credentials");
                 } catch (err: any) {
                     console.log("error in authorize () => ", err);
-                    throw new Error("Authentication Failed!");
+                    throw new Error(err?.message || "Authentication Failed!");
                 }
             },
         }),
@@ -44,8 +52,26 @@ const nextAuth: NextAuthOptions = {
             console.log("@SignIn params => ", params);
             return true;
         },
-        jwt: async ({ user, token, account }) => {
+        jwt: async (params) => {
+            const { user, token, account, trigger, profile } = params;
+            if (trigger === "update") {
+                const currentUser = await User.findOne({ email: token.email }).select(
+                    "-password"
+                );
+                console.log("trigger is update => cuurentUSER => ", {
+                    currentUser,
+                    params,
+                });
+
+                return {
+                    ...token,
+                    ...user,
+                    ...currentUser?._doc,
+                };
+            }
+            // @ts-ignore
             const payload = { ...token, ...user };
+
             console.log("@jwt => ", payload);
             return payload;
         },
@@ -68,4 +94,5 @@ const nextAuth: NextAuthOptions = {
     debug: !isProduction,
 };
 
+connectDB();
 export default NextAuth(nextAuth);

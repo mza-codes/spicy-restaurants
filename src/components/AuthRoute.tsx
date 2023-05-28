@@ -7,9 +7,10 @@ type Props = {
     protect: boolean;
     path: `/${string}`;
     children: ReactNode;
+    fullscreen?: boolean;
 };
 
-export default function AuthRoute({ path, protect, children }: Props) {
+export default function AuthRoute({ path, protect, children, fullscreen }: Props) {
     const router = useRouter();
     const data = useSession({
         required: protect,
@@ -18,7 +19,12 @@ export default function AuthRoute({ path, protect, children }: Props) {
         },
     });
 
-    if (data.status === "loading") return <ScreenLoader />;
+    if (data.status === "loading")
+        return (
+            <section className={`${fullscreen ? "min-h-screen" : "min-h-[inherit]"}`}>
+                <ScreenLoader />
+            </section>
+        );
     if (data.status === "authenticated" && !protect) {
         router.push("/");
         return null;

@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from "react";
 
 export type CheckBoxProps = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
@@ -9,18 +9,23 @@ export type CheckBoxProps = DetailedHTMLProps<
     className?: string;
 };
 
-export default function CheckBox({ label, name, className, ...props }: CheckBoxProps) {
+const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
+    { label, className, ...props },
+    ref
+) {
     return (
         <label className={`cursor-pointer ${className} row gap-2 items-center`}>
             <input
+                ref={ref}
                 {...props}
-                name={name}
                 type="checkbox"
                 className="checkbox checkbox-sm accent-primary checkbox-primary"
             />
-            <label htmlFor={name} className="text-base text-secondary">
+            <label htmlFor={props?.name} className="text-base text-secondary">
                 {label}
             </label>
         </label>
     );
-}
+});
+
+export default CheckBox;

@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { NotificationsKey } from "@/types";
+
+type NotificationsField = Record<NotificationsKey, boolean>;
 
 const userSchema = new mongoose.Schema(
     {
@@ -16,9 +19,29 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
+        lname: {
+            type: String,
+            default: "",
+        },
+        phone: {
+            type: String,
+            default: null,
+        },
         verified: {
             type: Boolean,
             default: false,
+        },
+        notifications: {
+            type: Object,
+            default: {
+                // ref NotificationsField
+                deals: true,
+                newsletter: false,
+                offers: true,
+                password_changes: true,
+                restaurants: true,
+                status: true,
+            },
         },
         change_count: {
             type: Object,
@@ -39,13 +62,27 @@ userSchema.methods.comparePwd = async function (password: string) {
     return await bcrypt.compare(password, this.password);
 };
 
-const model = mongoose.model("User", userSchema);
-type USER = typeof model;
-
-function getUser(): USER {
-    return mongoose.models?.["User"] ?? model;
+function getUser() {
+    // ts errors popping up
+    if (mongoose.models?.User) return mongoose.models?.User;
+    return mongoose.model("User", userSchema);
 }
 
-const User = getUser();
-
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default User;
+
+// @update after change
+export type DBUser = {
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
+    _id: string;
+} & {
+    name: string;
+    email: string;
+    phone: string;
+    lname: string;
+    password: string;
+    verified: boolean;
+    notifications: NotificationsField;
+    change_count: { password: number; email: number; name: number };
+};

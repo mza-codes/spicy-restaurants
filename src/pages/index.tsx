@@ -1,3 +1,4 @@
+import { connectDB } from "@/lib/mongo";
 import { genTitle } from "@/lib/utils";
 import Banner from "@/sections/Banner";
 import NearBy from "@/sections/NearBy";
@@ -26,6 +27,7 @@ export default function HomePage(props: HomepageProps) {
 export const getStaticProps: GetStaticProps<HomepageProps> = async () => {
     // Fetch data or perform any other necessary operations
     // Return the props object
+
     return {
         props: {
             nearby: [

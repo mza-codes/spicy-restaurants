@@ -10,13 +10,23 @@ type Props = DetailedHTMLProps<
     hideBorder?: boolean;
 };
 
-export default function Button({ children, className, outline, bg, ...props }: Props) {
+export default function Button({
+    children,
+    className,
+    outline,
+    bg,
+    disabled,
+    type,
+    ...props
+}: Props) {
     return (
         <button
             {...props}
-            className={`${className} text-sm font-bold tracking-wide rounded-lg hover:opacity-80 p-4 ${
+            className={`${className} text-sm font-bold tracking-wide rounded-lg hover:opacity-80 p-3 relative ${
                 bg ? "bg-primary text-white" : "text-primary"
-            } `}
+            } ${disabled ? "animate-pulse cursor-not-allowed" : ""}`}
+            disabled={disabled}
+            type={type ?? "button"}
         >
             {children}
         </button>
@@ -30,6 +40,7 @@ export function ButtonV2({
     hideBorder,
     color,
     bg,
+    type,
     ...props
 }: Props) {
     return (
@@ -43,6 +54,7 @@ export function ButtonV2({
                 hideBorder ? "disabled:border-none" : ""
             }`}
             style={{ color: color, borderColor: color }}
+            type={type ?? "button"}
         >
             {children}
         </button>
