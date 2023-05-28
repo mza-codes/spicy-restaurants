@@ -16,7 +16,6 @@ const nextAuth: NextAuthOptions = {
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials, req) {
-                console.log("async authorize(): ", { credentials, req });
                 try {
                     const { email, password } = credentials as {
                         email: string;
@@ -27,7 +26,6 @@ const nextAuth: NextAuthOptions = {
                         throw new Error("User does not exist!");
 
                     if (await bcrypt.compare(password, user?.password)) {
-                        console.log("Final USER () =>", user);
                         return user?._doc;
                     }
                     throw new Error("Invalid Credentials");

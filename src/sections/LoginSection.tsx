@@ -1,11 +1,11 @@
 import Button from "@/components/Button";
 import CheckBox from "@/components/CheckBox";
-import InputBox, { InputBoxProps } from "@/components/InputBox";
+import InputBox, { InputBoxProps, InputBoxV1 } from "@/components/InputBox";
 import AppLogo from "@/components/sub-components/AppLogo";
 import useAuthStore from "@/store/useAuthStore";
 import { Spin } from "antd";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 
 export default function LoginSection() {
     const signIn = useAuthStore((s) => s.signInWithPassword);
@@ -36,7 +36,7 @@ export default function LoginSection() {
                 </span>
                 <form onSubmit={handleSubmit} className="col w-full items-start gap-5">
                     {formFields.map((field) => (
-                        <InputBox
+                        <InputBoxV1
                             required
                             key={field.label}
                             {...field}
