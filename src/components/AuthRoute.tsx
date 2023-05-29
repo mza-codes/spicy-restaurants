@@ -3,14 +3,19 @@ import ScreenLoader from "./ScreenLoader";
 import { useSession } from "next-auth/react";
 import { ReactNode } from "react";
 
-type Props = {
+type AuthRouteProps = {
     protect: boolean;
     path: `/${string}`;
     children: ReactNode;
     fullscreen?: boolean;
 };
 
-export default function AuthRoute({ path, protect, children, fullscreen }: Props) {
+export default function AuthRoute({
+    path,
+    protect,
+    children,
+    fullscreen,
+}: AuthRouteProps) {
     const router = useRouter();
     const data = useSession({
         required: protect,
