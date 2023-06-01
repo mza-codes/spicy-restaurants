@@ -1,5 +1,6 @@
 import BannerCard, { BannerCardProps } from "@/components/BannerCard";
 import BannerItem from "@/components/BannerItem";
+import { tags } from "@/types";
 
 export default function Banner() {
     return (
@@ -43,4 +44,4 @@ var items: BannerCardProps[] = [
     },
 ];
 
-var categories = ["pizza", "burger", "bbq", "sushi", "vegan", "desserts"];
+var categories: tags[] = ["pizza", "burger", "bbq", "sushi", "vegan", "desserts"];

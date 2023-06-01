@@ -11,7 +11,7 @@ export default function NearBy({ restaurants }: NearByProps) {
     return (
         <>
             <SubHeading title="Nearby Restaurants" />
-            <section className="row gap-4">
+            <section className="row gap-4 pb-12">
                 {restaurants.map((card, i) => (
                     <RestaurantCard
                         key={i}
