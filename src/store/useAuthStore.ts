@@ -43,7 +43,12 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     },
 }));
 
-export const logOut = useAuthStore.getState().signOut;
+export const {
+    signOut: logOut,
+    signInWithPassword,
+    signUpWithPassword,
+} = useAuthStore.getState();
+
 export default useAuthStore;
 
 interface AuthStore {

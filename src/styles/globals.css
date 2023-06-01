@@ -57,3 +57,8 @@ button {
         border-radius: 50%;
     }
 }
+
+/* OVERRIDES */
+.ant-spin-dot-item {
+    background-color: #1b0094 !important;
+}

@@ -50,7 +50,9 @@ const InputBox = forwardRef<HTMLInputElement, InputBoxProps>(function InputBox(
                     </button>
                 )}
             </div>
-            <span className="text-error capitalize text-xs ml-1">{error}</span>
+            <span className="text-error capitalize text-xs font-semibold ml-2">
+                {error}
+            </span>
         </div>
     );
 });
