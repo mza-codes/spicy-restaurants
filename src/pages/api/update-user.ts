@@ -2,7 +2,14 @@ import { db } from "@/lib/db";
 import { DBUser } from "@/models/User";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export type updateResponse = {
+    user: DBUser;
+};
+
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse<updateResponse>
+) {
     if (req.method === "PATCH") {
         console.log(req.body);
         const payload = req.body as DBUser;
