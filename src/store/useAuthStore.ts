@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { LoginData, SignupData } from "@/types";
+import { registerRes } from "@/pages/api/register";
 
 const useAuthStore = create<AuthStore>((set, get) => ({
     loading: false,
@@ -26,7 +27,10 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     },
     async signUpWithPassword(formData) {
         try {
-            const { data } = await axios.post(`/api/register`, formData);
+            const { data }: { data: registerRes } = await axios.post(
+                `/api/register`,
+                formData
+            );
             console.log("SIGNUP () => ", data);
             const status = await get().signInWithPassword(formData);
             return status;

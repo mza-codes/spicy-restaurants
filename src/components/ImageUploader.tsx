@@ -61,7 +61,7 @@ export default function ImageUploader({}: Props) {
             </label>
 
             <ButtonV2
-                color="#fc5695"
+                color="#FF5C60"
                 onClick={() => setState(initial)}
                 disabled={!state.ok}
                 hideBorder

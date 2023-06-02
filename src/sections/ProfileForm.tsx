@@ -1,8 +1,3 @@
-import { ButtonV2 } from "@/components/Button";
-import CheckBox, { CheckBoxProps } from "@/components/CheckBox";
-import InputBox, { InputBoxProps } from "@/components/InputBox";
-import { DBUser } from "@/models/User";
-import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -10,21 +5,31 @@ import { Spin } from "antd";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { NotificationsKey } from "@/types";
+
+import { ButtonV2 } from "@/components/Button";
+import CheckBox, { CheckBoxProps } from "@/components/CheckBox";
+import InputBox, { InputBoxProps } from "@/components/InputBox";
 import useAuth from "@/hooks/useAuth";
 import ImageUploader from "@/components/ImageUploader";
 import { logOut } from "@/store/useAuthStore";
+
+import { DBUser } from "@/models/User";
+import { NotificationsKey } from "@/types";
+
+import { updateResponse } from "@/pages/api/update-user";
 
 type Props = {
     user: DBUser;
 };
 
-type FormData = {
+type InputFields = {
     name: string;
     lname: string;
     email: string;
     phone: string;
-} & { [Key in NotificationsKey]: boolean };
+};
+
+type FormData = InputFields & { [Key in NotificationsKey]: boolean };
 
 const formSchema = Yup.object().shape({
     name: Yup.string().required().min(3).max(26),
@@ -39,8 +44,7 @@ const formSchema = Yup.object().shape({
 
 export default function ProfileForm({ user }: Props) {
     const [loading, setLoading] = useState(false);
-    const { setUser } = useAuth();
-    const { update } = useSession();
+    const { setUser, update } = useAuth();
     const {
         handleSubmit,
         register,
@@ -89,7 +93,10 @@ export default function ProfileForm({ user }: Props) {
                 },
             };
 
-            const { data } = await axios.patch(`/api/update-user`, payload);
+            const { data } = await axios.patch<updateResponse>(
+                `/api/update-user`,
+                payload
+            );
             console.log("update req complete", data);
             // setUser(data?.user);
             const sess = await update();
@@ -121,9 +128,7 @@ export default function ProfileForm({ user }: Props) {
                                 containerClassName="flex-[46%] font-semibold min-w-[230px]"
                                 key={i}
                                 {...fieldProps}
-                                // @ts-ignore
                                 error={errors?.[field.name!]?.message}
-                                // @ts-ignore
                                 defaultValue={user?.[field?.name] || field.defaultValue}
                             />
                         );
@@ -165,7 +170,12 @@ export default function ProfileForm({ user }: Props) {
                     >
                         Discard Changes
                     </ButtonV2>
-                    <ButtonV2 disabled={loading} type="submit" className="flex-grow" bg>
+                    <ButtonV2
+                        disabled={loading || !!!isDirty}
+                        type="submit"
+                        className="flex-grow"
+                        bg
+                    >
                         Save changes
                     </ButtonV2>
                 </div>
@@ -174,7 +184,7 @@ export default function ProfileForm({ user }: Props) {
     );
 }
 
-var fields: InputBoxProps<keyof FormData>[] = [
+var fields: InputBoxProps<keyof InputFields>[] = [
     {
         label: "First name",
         placeholder: "John",
@@ -195,6 +205,7 @@ var fields: InputBoxProps<keyof FormData>[] = [
         name: "email",
         type: "email",
         defaultValue: "jane.robertson@example.com",
+        readOnly: true,
     },
     {
         label: "Phone number",

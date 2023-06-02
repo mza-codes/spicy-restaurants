@@ -1,32 +1,35 @@
 import User, { DBUser } from "@/models/User";
 import { SignupData } from "@/types";
 
-export const db = {
-    async createUser(data: SignupData): Promise<[any, any]> {
-        let [err, result]: [any, any] = [null, null];
-        try {
-            const user = await User.findOne({ email: data.email }).select("-password");
-            if (user || user?._id) throw new Error("User Exists, Please Login!");
+type Nullable<T> = T | null;
 
-            const newUser = await User.create(data);
-            result = newUser;
+export const db = {
+    async fetcher<T = any>(request: Promise<T>): Promise<[Nullable<any>, Nullable<T>]> {
+        try {
+            const data = await request;
+            return [null, data];
         } catch (error: any) {
-            err = error;
-        } finally {
-            return [err, result];
+            return [error, null];
         }
     },
-    async updateUser(_id: string, data: Partial<DBUser>): Promise<[any, any]> {
-        let [err, result]: [any, any] = [null, null];
-        try {
-            const user = await User.findByIdAndUpdate(_id, data, { new: true });
-            console.log("@user updated () => \n", { data, _id, user });
+    async createUser(data: SignupData): Promise<[Nullable<any>, Nullable<DBUser>]> {
+        let [err, user] = await this.fetcher<DBUser>(
+            User.findOne({ email: data.email }).select("-password")
+        );
 
-            result = user;
-        } catch (error: any) {
-            err = error;
-        } finally {
-            return [err, result];
+        if (user) {
+            err.message = "User Exists, Please Login!";
+            return [err, null];
         }
+
+        return await this.fetcher<DBUser>(User.create(data));
+    },
+    async updateUser(_id: string, data: Partial<DBUser>): Promise<[any, any]> {
+        const [err, user] = await this.fetcher(
+            User.findByIdAndUpdate(_id, data, { new: true })
+        );
+        console.log("@user updated () => \n", { data, _id, user });
+
+        return [err, user];
     },
 };

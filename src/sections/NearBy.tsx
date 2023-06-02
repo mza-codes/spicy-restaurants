@@ -1,4 +1,3 @@
-import CategoryTag from "@/components/CategoryTag";
 import RestaurantCard from "@/components/RestaurantCard";
 import SubHeading from "@/components/SubHeading";
 import { Restaurant } from "@/types";

@@ -50,7 +50,7 @@ export function ButtonV2({
                 bg
                     ? "bg-primary text-white hover:bg-primary/90"
                     : "text-primary hover:bg-primary.200"
-            } disabled:border-gray.200 disabled:text-gray.400  disabled:hover:bg-transparent disabled:cursor-not-allowed ${
+            } disabled:border-gray.200 disabled:text-gray.400 disabled:bg-transparent disabled:hover:bg-transparent disabled:cursor-not-allowed ${
                 hideBorder ? "disabled:border-none" : ""
             }`}
             style={{ color: color, borderColor: color }}
