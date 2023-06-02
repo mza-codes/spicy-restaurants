@@ -6,12 +6,13 @@ import { genTitle } from "@/lib/utils";
 import LoginForm from "@/sections/LoginForm";
 import LoginPromoSection from "@/sections/LoginPromoSection";
 import SignUpForm from "@/sections/SignUpForm";
+import VeriyForm from "@/sections/VerifyForm";
 import { Spin } from "antd";
 import Head from "next/head";
 import Link from "next/link";
 
 type AuthLayoutProps = {
-    type: "login" | "signup";
+    type: "login" | "signup" | "verify";
     title: string;
 };
 
@@ -30,6 +31,7 @@ export default function AuthLayout({ type, title }: AuthLayoutProps) {
                     </Link>
                     {type === "login" && <LoginForm />}
                     {type === "signup" && <SignUpForm />}
+                    {type === "verify" && <VeriyForm />}
                     {loading && (
                         <Backdrop className="hidden lg:flex">
                             <Spin size="large" />
