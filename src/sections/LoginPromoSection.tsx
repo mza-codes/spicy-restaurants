@@ -4,7 +4,11 @@ export default function LoginPromoSection() {
     return (
         <section className="bg-primary.400 min-h-[inherit] flex-[2] hidden lg:flex flex-col flex-wrap justify-evenly items-center px-4">
             <div className="relative">
-                <Img src="/assets/login-promo-2.png" alt="login promo" />
+                <Img
+                    src="/assets/login-promo-2.png"
+                    alt="login promo"
+                    bgClassName="bg-primary.400"
+                />
             </div>
             <article className="text-white text-center max-w-md col gap-4 items-center">
                 <h6 className="text-[32px] font-bold ">Leave reviews for all meals</h6>
