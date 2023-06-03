@@ -1,15 +1,21 @@
 import { genTitle } from "@/lib/utils";
 import Banner from "@/sections/Banner";
 import NearBy from "@/sections/NearBy";
+import { populateData } from "@/store/useLocalStore";
 import { Restaurant } from "@/types";
 import { GetStaticProps } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
 
 type HomepageProps = {
     nearby: Restaurant[];
 };
 
 export default function HomePage(props: HomepageProps) {
+    useEffect(() => {
+        populateData(props.nearby);
+    }, [props.nearby]);
+
     return (
         <>
             <Head>
@@ -17,7 +23,7 @@ export default function HomePage(props: HomepageProps) {
             </Head>
             <main className="col py-3 gap-5">
                 <Banner />
-                <NearBy restaurants={props.nearby} />
+                <NearBy />
             </main>
         </>
     );

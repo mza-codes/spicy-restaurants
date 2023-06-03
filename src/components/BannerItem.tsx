@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import Img from "./Img";
 
 type Props = {
     title: string;
     image: string;
-    selected?: boolean;
+    selected: boolean;
+    onClick: (isSelected: boolean) => void;
 };
 
-export default function BannerItem({ image, title, selected = false }: Props) {
-    const [select, setSelect] = useState(selected);
-
+export default function BannerItem({ image, onClick, title, selected }: Props) {
     return (
         <div
-            onClick={() => setSelect((c) => !c)}
+            onClick={() => onClick(selected)}
             className={`flex-grow flex-1 rounded-2xl p-4 cursor-pointer m-2 col center gap-4 border-2 ${
-                select
+                selected
                     ? "text-primary border-primary hover:bg-primary.400/30 bg-primary.400/10"
                     : "text-secondary.400 border-gray.200 hover:border-primary.400 hover:bg-[#F8F9FF]"
             } `}

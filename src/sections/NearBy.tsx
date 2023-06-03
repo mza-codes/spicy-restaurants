@@ -1,17 +1,19 @@
 import RestaurantCard from "@/components/RestaurantCard";
 import SubHeading from "@/components/SubHeading";
-import { Restaurant } from "@/types";
+import useLocalStore from "@/store/useLocalStore";
 
-type NearByProps = {
-    restaurants: Restaurant[];
-};
-
-export default function NearBy({ restaurants }: NearByProps) {
+export default function NearBy() {
+    const data = useLocalStore((s) => s.restaurants);
     return (
         <>
             <SubHeading title="Nearby Restaurants" />
+            {data.length <= 0 && (
+                <span className="font-semibold text-lg text-error p-4">
+                    No Nearby Restaurants Found!
+                </span>
+            )}
             <section className="row gap-4 pb-12">
-                {restaurants.map((card, i) => (
+                {data.map((card, i) => (
                     <RestaurantCard
                         key={i}
                         card={{

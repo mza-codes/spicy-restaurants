@@ -14,12 +14,12 @@ export default function RestaurantCard({ card }: RestaurantCardProps) {
     const [count, setCount] = useState(card.count);
 
     return (
-        <div className="rounded-2xl border-gray.200 border-[1px] col min-w-[260px] sm:min-w-[350px] flex-[30%]">
+        <div className="rounded-2xl border-gray.200 border-[1px] col min-w-[260px] sm:min-w-[350px] flex-[30%] h-auto">
             <div className="relative">
                 <Img
                     src={card.img}
                     alt={card.title}
-                    className="overflow-hidden rounded-t-2xl max-w-full min-h-[180px] object-cover"
+                    className="overflow-hidden rounded-t-2xl w-full min-h-[180px] max-h-[300px] object-cover"
                 />
                 {card.featured && (
                     <span
