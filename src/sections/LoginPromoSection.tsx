@@ -8,6 +8,7 @@ export default function LoginPromoSection() {
                     src="/assets/login-promo-2.png"
                     alt="login promo"
                     bgClassName="bg-primary.400"
+                    svgColor="#fff"
                 />
             </div>
             <article className="text-white text-center max-w-md col gap-4 items-center">
