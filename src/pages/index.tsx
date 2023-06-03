@@ -1,4 +1,3 @@
-import { connectDB } from "@/lib/mongo";
 import { genTitle } from "@/lib/utils";
 import Banner from "@/sections/Banner";
 import NearBy from "@/sections/NearBy";

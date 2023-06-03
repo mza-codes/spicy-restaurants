@@ -1,5 +1,6 @@
 import { Badge, Popover } from "antd";
 import { GoPackage } from "react-icons/go";
+import Img from "../Img";
 
 export default function CartIcon() {
     return (
@@ -22,7 +23,7 @@ export default function CartIcon() {
                 className="btn-animate rounded-lg"
             >
                 <div className="rounded-2xl bg-gray.200 p-3 relative cursor-pointer hover:bg-primary.200/40">
-                    <img src={"/assets/Bag.svg"} className="m-auto" alt="bag_icon" />
+                    <Img src={"/assets/Bag.svg"} className="m-auto" alt="bag_icon" />
                 </div>
             </Badge>
         </Popover>

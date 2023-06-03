@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Img from "./Img";
 
 type Props = {
     title: string;
@@ -18,7 +19,7 @@ export default function BannerItem({ image, title, selected = false }: Props) {
                     : "text-secondary.400 border-gray.200 hover:border-primary.400 hover:bg-[#F8F9FF]"
             } `}
         >
-            <img className="w-6" src={image} alt={title} />
+            <Img className="w-6" src={image} alt={title} />
             <span className="text-sm font-extrabold capitalize">{title}</span>
         </div>
     );
@@ -36,7 +37,7 @@ export function BannerItemV1({ image, title, selected = false }: Props) {
                     : "text-secondary.400 border-[1px] border-gray.200 hover:border-primary.400 hover:bg-[#F8F9FF]"
             } `}
         >
-            <img className="w-6" src={image} alt={title} />
+            <Img className="w-6" src={image} alt={title} />
             <span className="text-sm font-extrabold capitalize">{title}</span>
         </div>
     );
