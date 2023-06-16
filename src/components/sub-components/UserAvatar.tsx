@@ -4,6 +4,7 @@ import { routes } from "@/lib/routes";
 import { logOut } from "@/store/useAuthStore";
 import { Popover } from "antd";
 import Link from "next/link";
+import Img from "../Img";
 
 const style = `text-primary py-2 px-4 rounded-md hover:bg-gray.200/40`;
 
@@ -43,7 +44,7 @@ export default function UserAvatar() {
             }
         >
             <div className="p-[2px] rounded-2xl border-[2px] border-gray.200 cursor-pointer hover:shadow-md hover:border-gray.400">
-                <img
+                <Img
                     className="object-fill m-0 rounded-xl w-10"
                     src="/assets/avatar.png"
                     alt="user_avatar"

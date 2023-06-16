@@ -18,7 +18,7 @@ export type InputBoxProps<T = string> = DetailedHTMLProps<
 };
 
 const InputBox = forwardRef<HTMLInputElement, InputBoxProps>(function InputBox(
-    { label, containerClassName, type, error, ...props },
+    { label, containerClassName, type, error, className = "", ...props },
     ref
 ) {
     const [show, setShow] = useState(false);
@@ -34,7 +34,7 @@ const InputBox = forwardRef<HTMLInputElement, InputBoxProps>(function InputBox(
             <div className={`relative`}>
                 <input
                     ref={ref}
-                    className={`rounded-lg border-gray.200 p-3 border-[1px] outline-primary.400 placeholder:text-gray.400 text-sm w-full read-only:opacity-75 read-only:outline-none read-only:cursor-not-allowed ${
+                    className={`${className} rounded-lg border-gray.200 p-3 border-[1px] outline-primary.400 placeholder:text-gray.400 text-sm w-full read-only:opacity-75 read-only:outline-none read-only:cursor-not-allowed ${
                         isPassword ? "pr-12" : ""
                     }`}
                     type={isPassword ? (show ? "text" : "password") : type}

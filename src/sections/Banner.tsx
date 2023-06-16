@@ -1,8 +1,21 @@
 import BannerCard, { BannerCardProps } from "@/components/BannerCard";
 import BannerItem from "@/components/BannerItem";
-import { tags } from "@/types";
+import useLocalStore, {
+    categories,
+    filterRestaurants,
+    selectTag,
+} from "@/store/useLocalStore";
+import { useEffect } from "react";
 
 export default function Banner() {
+    const selectedTags = useLocalStore((s) => s.selectedTags);
+    const res = useLocalStore((s) => s.restaurants);
+    console.log("TAS=>", { res, selectedTags });
+
+    useEffect(() => {
+        filterRestaurants();
+    }, [selectedTags]);
+
     return (
         <>
             <section className="py-2 row center gap-4">
@@ -17,7 +30,10 @@ export default function Banner() {
                         image={`/assets/items/${cat}.png`}
                         title={cat}
                         key={cat}
-                        selected={i % 2 === 0}
+                        selected={selectedTags.includes(cat)}
+                        onClick={(isSelected) => {
+                            selectTag(cat, isSelected);
+                        }}
                     />
                 ))}
             </section>
@@ -43,5 +59,3 @@ var items: BannerCardProps[] = [
         color: "#FD6D22",
     },
 ];
-
-var categories: tags[] = ["pizza", "burger", "bbq", "sushi", "vegan", "desserts"];

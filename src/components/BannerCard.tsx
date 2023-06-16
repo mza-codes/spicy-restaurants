@@ -1,3 +1,5 @@
+import Img from "./Img";
+
 export type BannerCardProps = {
     title: string;
     discount: string;
@@ -21,7 +23,7 @@ export default function BannerCard({
             className={`flex flex-col-reverse md:flex-row gap-2 justify-between flex-[90%] md:flex-[46%] rounded-2xl m-2 relative items-end text-start min-h-[180px]`}
         >
             <div className="relative flex-1">
-                <img src={image} alt={title} />
+                <Img src={image} alt={title} bgColor={bg} svgColor={"#777"} />
             </div>
             <div className="col gap-2 justify-between flex-1 p-4 w-full">
                 <div className="col">

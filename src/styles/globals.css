@@ -58,6 +58,10 @@ button {
     }
 }
 
+.load-placeholder {
+    @apply bg-gray.400/50 animate-pulse rounded-2xl;
+}
+
 /* OVERRIDES */
 .ant-spin-dot-item {
     background-color: #1b0094 !important;

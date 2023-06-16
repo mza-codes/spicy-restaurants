@@ -1,12 +1,12 @@
 import AuthLayout from "@/layouts/AuthLayout";
 import AuthRoute from "@/components/AuthRoute";
 
-export default function LoginPage() {
+export default function VerifyPage() {
     return (
         <AuthRoute fullscreen protect={false} path="/">
-            <AuthLayout title="Login" type="login" />
+            <AuthLayout title="Verification" type="verify" />
         </AuthRoute>
     );
 }
 
-LoginPage._uniqueLayout = true;
+VerifyPage._uniqueLayout = true;

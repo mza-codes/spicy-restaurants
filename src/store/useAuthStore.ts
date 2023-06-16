@@ -2,13 +2,18 @@ import axios from "axios";
 import { create } from "zustand";
 import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
-import { LoginData, SignupData } from "@/types";
+import type { LoginData, SetFunction, SignupData } from "@/types";
 import { registerRes } from "@/pages/api/register";
 
 const useAuthStore = create<AuthStore>((set, get) => ({
     loading: false,
+    code: "",
+    userData: null,
+
     setLoading(bool) {
-        set({ loading: bool });
+        if (bool instanceof Function) {
+            set({ loading: bool(get().loading) });
+        } else set({ loading: bool });
     },
     async signInWithPassword({ email, password }) {
         const res = await signIn("credentials", {
@@ -27,10 +32,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     },
     async signUpWithPassword(formData) {
         try {
-            const { data }: { data: registerRes } = await axios.post(
-                `/api/register`,
-                formData
-            );
+            const { data } = await axios.post<registerRes>(`/api/register`, formData);
             console.log("SIGNUP () => ", data);
             const status = await get().signInWithPassword(formData);
             return status;
@@ -45,20 +47,35 @@ const useAuthStore = create<AuthStore>((set, get) => ({
         await signOut({ redirect: false });
         get().setLoading(false);
     },
+    async storeUserData(formData) {
+        set({
+            userData: formData,
+            code: "4444",
+        });
+        const status = await new Promise<boolean>((res, rej) =>
+            setTimeout(() => res(false), 4000)
+        );
+        return status;
+    },
 }));
 
 export const {
     signOut: logOut,
     signInWithPassword,
     signUpWithPassword,
+    storeUserData,
 } = useAuthStore.getState();
 
 export default useAuthStore;
 
 interface AuthStore {
     loading: boolean;
-    setLoading: (bool: boolean) => void;
+    code: string;
+    userData: SignupData | null;
+
+    setLoading: SetFunction<boolean>;
     signInWithPassword: (formData: LoginData) => Promise<boolean>;
     signUpWithPassword: (formData: SignupData) => Promise<boolean>;
     signOut: () => void;
+    storeUserData: (formData: SignupData) => Promise<boolean>;
 }

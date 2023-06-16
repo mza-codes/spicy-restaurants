@@ -1,3 +1,5 @@
+export type SetFunction<T> = (value: T | ((prev: T) => T)) => void;
+
 export interface Restaurant {
     title: string;
     time: string;

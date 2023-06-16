@@ -1,6 +1,7 @@
 import { ButtonV2 } from "@/components/Button";
 import { SUPPORTED_IMGS } from "@/lib/utils";
 import { useState } from "react";
+import Img from "./Img";
 
 type Props = {};
 const defaultImg = `/assets/avatar.png`;
@@ -18,7 +19,7 @@ export default function ImageUploader({}: Props) {
             <span className="absolute text-secondary.400 text-xs font-semibold top-0 left-1">
                 Avatar
             </span>
-            <img
+            <Img
                 className="rounded-xl w-24 h-24 object-cover"
                 src={state.img}
                 alt="user-avatar"
