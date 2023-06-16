@@ -4,7 +4,8 @@ import { create } from "zustand";
 const useLocalStore = create<LocalStore>((set, get) => ({
     data: [],
     restaurants: [],
-    selectedTags: ["burger", "pizza", "sushi"],
+    selectedTags: ["burger", "pizza", "sushi", "desserts"],
+    isFetching: true,
 
     selectTag(tag, isSelected) {
         if (isSelected) {
@@ -40,6 +41,7 @@ const useLocalStore = create<LocalStore>((set, get) => ({
         set({
             data,
             restaurants: data,
+            isFetching: false,
         });
     },
 }));
@@ -54,6 +56,7 @@ interface LocalStore {
     selectedTags: tags[];
     restaurants: Restaurant[];
     data: Readonly<Restaurant>[];
+    isFetching: boolean;
 
     populateData: (data: Restaurant[]) => void;
     selectTag: (tag: tags, isSelected: boolean) => void;

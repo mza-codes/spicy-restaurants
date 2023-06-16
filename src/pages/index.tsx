@@ -7,11 +7,12 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
 
-type HomepageProps = {
+type HomePageProps = {
     nearby: Restaurant[];
 };
 
-export default function HomePage(props: HomepageProps) {
+export default function HomePage(props: HomePageProps) {
+
     useEffect(() => {
         populateData(props.nearby);
     }, [props.nearby]);
@@ -29,9 +30,7 @@ export default function HomePage(props: HomepageProps) {
     );
 }
 
-export const getStaticProps: GetStaticProps<HomepageProps> = async () => {
-    // Fetch data or perform any other necessary operations
-    // Return the props object
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 
     return {
         props: {

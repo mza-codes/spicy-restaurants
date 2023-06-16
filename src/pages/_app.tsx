@@ -1,16 +1,16 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
-import MainLayout, { MainLayoutProps } from "@/Layouts/MainLayout";
+import MainLayout, { MainLayoutProps } from "@/layouts/MainLayout";
 
-type LayoutProps = AppProps & {
+type _AppProps = AppProps & {
     Component: MainLayoutProps;
 };
 
 export default function App({
     Component,
     pageProps: { session, ...pageProps },
-}: LayoutProps) {
+}: _AppProps) {
     return (
         <SessionProvider session={session}>
             <MainLayout _uniqueLayout={Component?._uniqueLayout}>
