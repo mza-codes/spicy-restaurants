@@ -1,11 +1,10 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
-// @ts-ignore
-import MainLayout from "@/layouts/MainLayout";
+import MainLayout, { MainLayoutProps } from "@/layouts/MainLayout";
 
 type Props = AppProps & {
-    Component: any;
+    Component: MainLayoutProps;
 };
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: Props) {
