@@ -1,7 +1,8 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
+import "../styles/globals.css";
+import React from "react";
 import { SessionProvider } from "next-auth/react";
-import MainLayout, { MainLayoutProps } from "@/layouts/MainLayout";
+import type { AppProps } from "next/app";
+import MainLayout, { type MainLayoutProps } from "../layouts/MainLayout";
 
 type Props = AppProps & {
     Component: MainLayoutProps;

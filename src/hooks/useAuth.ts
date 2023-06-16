@@ -14,6 +14,8 @@ export default function useAuth() {
     useEffect(() => {
         if (status === "authenticated") setUser(data?.user);
         else if (status === "unauthenticated") setUser(null);
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status, data]);
 
     return { user, setUser, update };
