@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
-import MainLayout, { MainLayoutProps } from "@/layouts/MainLayout";
+import MainLayout, { MainLayoutProps } from "@/layout/MainLayout";
 
 type Props = AppProps & {
     Component: MainLayoutProps;

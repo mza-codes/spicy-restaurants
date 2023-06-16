@@ -1,4 +1,4 @@
-import AuthLayout from "@/layouts/AuthLayout";
+import AuthLayout from "@/layout/AuthLayout";
 import AuthRoute from "@/components/AuthRoute";
 
 export default function SignUpPage() {
