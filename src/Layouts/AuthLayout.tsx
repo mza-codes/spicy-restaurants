@@ -17,7 +17,8 @@ type AuthLayoutProps = {
 };
 
 export default function AuthLayout({ type, title }: AuthLayoutProps) {
-    const loading = useAuthLoader()[0];
+    const [loading, setLoading] = useAuthLoader();
+    const isDev = process.env.NODE_ENV === "development";
 
     return (
         <AuthRoute fullscreen protect={false} path="/">
@@ -45,6 +46,14 @@ export default function AuthLayout({ type, title }: AuthLayoutProps) {
                     </Backdrop>
                 )}
                 <LoginPromoSection />
+                {isDev && <button
+                    onClick={() => {
+                        setLoading((curr) => !curr);
+                    }}
+                    className="absolute bottom-2 btn btn-primary left-2 z-20"
+                >
+                    Toggle
+                </button>}
             </main>
         </AuthRoute>
     );

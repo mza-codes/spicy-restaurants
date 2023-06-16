@@ -2,7 +2,7 @@ import axios from "axios";
 import { create } from "zustand";
 import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
-import { LoginData, SignupData } from "@/types";
+import type { LoginData, SetFunction, SignupData } from "@/types";
 import { registerRes } from "@/pages/api/register";
 
 const useAuthStore = create<AuthStore>((set, get) => ({
@@ -11,7 +11,9 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     userData: null,
 
     setLoading(bool) {
-        set({ loading: bool });
+        if (bool instanceof Function) {
+            set({ loading: bool(get().loading) });
+        } else set({ loading: bool });
     },
     async signInWithPassword({ email, password }) {
         const res = await signIn("credentials", {
@@ -71,7 +73,7 @@ interface AuthStore {
     code: string;
     userData: SignupData | null;
 
-    setLoading: (bool: boolean) => void;
+    setLoading: SetFunction<boolean>;
     signInWithPassword: (formData: LoginData) => Promise<boolean>;
     signUpWithPassword: (formData: SignupData) => Promise<boolean>;
     signOut: () => void;

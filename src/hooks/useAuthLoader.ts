@@ -1,7 +1,8 @@
 import useAuthStore from "@/store/useAuthStore";
+import { SetFunction } from "@/types";
 import { shallow } from "zustand/shallow";
 
-export default function useAuthLoader(): [boolean, (bool: boolean) => void] {
-    const [loading, setLoading] = useAuthStore((s) => [s.loading, s.setLoading]);
-    return [loading, setLoading];
+export default function useAuthLoader<T=any>(): [boolean, SetFunction<boolean>] {
+    const [loading, setLoading] = useAuthStore((s) => [s.loading, s.setLoading], shallow);
+    return [loading, setLoading, ];
 }
