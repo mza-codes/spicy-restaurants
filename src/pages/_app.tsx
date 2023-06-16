@@ -3,14 +3,11 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import MainLayout, { MainLayoutProps } from "@/layouts/MainLayout";
 
-type _AppProps = AppProps & {
+type Props = AppProps & {
     Component: MainLayoutProps;
 };
 
-export default function App({
-    Component,
-    pageProps: { session, ...pageProps },
-}: _AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: Props) {
     return (
         <SessionProvider session={session}>
             <MainLayout _uniqueLayout={Component?._uniqueLayout}>
