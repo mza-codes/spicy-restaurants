@@ -2,8 +2,8 @@ import axios from "axios";
 import { create } from "zustand";
 import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
-import type { LoginData, SetFunction, SignupData } from "@/types";
 import { registerRes } from "@/pages/api/register";
+import type { LoginData, SetFunction, SignupData } from "@/types";
 
 const useAuthStore = create<AuthStore>((set, get) => ({
     loading: false,

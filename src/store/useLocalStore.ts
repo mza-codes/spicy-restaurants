@@ -18,6 +18,11 @@ const useLocalStore = create<LocalStore>((set, get) => ({
             });
         }
     },
+    setSelectedTags(tag) {
+        set({
+            selectedTags: [tag],
+        });
+    },
     filterRestaurants() {
         const items: Restaurant[] = [];
         const { data, selectedTags } = get();
@@ -46,7 +51,8 @@ const useLocalStore = create<LocalStore>((set, get) => ({
     },
 }));
 
-export const { selectTag, filterRestaurants, populateData } = useLocalStore.getState();
+export const { selectTag, setSelectedTags, filterRestaurants, populateData } =
+    useLocalStore.getState();
 
 export default useLocalStore;
 
@@ -61,4 +67,9 @@ interface LocalStore {
     populateData: (data: Restaurant[]) => void;
     selectTag: (tag: tags, isSelected: boolean) => void;
     filterRestaurants: () => void;
+    setSelectedTags: (tag: tags) => void;
 }
+
+export const isValidTag = (val: any): val is tags => {
+    return categories.includes(val);
+};

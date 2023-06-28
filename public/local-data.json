@@ -1,0 +1,56 @@
+[
+    {
+        "title": "Royal Sushi House",
+        "time": "30-40",
+        "price": "32",
+        "tags": ["sushi"],
+        "featured": true,
+        "img": "",
+        "count": 0
+    },
+    {
+        "title": "Burgers & Pizza",
+        "time": "40-60",
+        "price": "24",
+        "tags": ["pizza", "burger"],
+        "featured": true,
+        "img": "",
+        "count": 2
+    },
+    {
+        "title": "Ninja Sushi",
+        "time": "20-40",
+        "price": "40",
+        "tags": ["sushi"],
+        "featured": false,
+        "img": "",
+        "count": 0
+    },
+    {
+        "title": "Sushi Master",
+        "time": "60-70",
+        "price": "49",
+        "tags": ["vegan", "sushi"],
+        "featured": false,
+        "img": "",
+        "count": 0
+    },
+    {
+        "title": "Japanese Sushi",
+        "time": "30-50",
+        "price": "104",
+        "tags": ["pizza", "bbq", "sushi"],
+        "featured": false,
+        "img": "",
+        "count": 0
+    },
+    {
+        "title": "Kobe",
+        "time": "20-30",
+        "price": "57",
+        "tags": ["sushi", "desserts", "bbq"],
+        "featured": false,
+        "img": "",
+        "count": 0
+    }
+]
