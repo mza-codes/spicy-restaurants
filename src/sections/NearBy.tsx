@@ -33,7 +33,7 @@ export default function NearBy() {
                         key={i}
                         card={{
                             ...card,
-                            img: `/assets/restaurants/${i + 1}.png`,
+                            img: card.img || `/assets/restaurants/${i + 1}.png`,
                         }}
                     />
                 ))}

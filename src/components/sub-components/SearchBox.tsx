@@ -3,8 +3,10 @@ import { Popover } from "antd";
 import { BiSearch } from "react-icons/bi";
 import CategoryTag from "../CategoryTag";
 import { useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function SearchBox() {
+    const router = useRouter();
     const [text, setText] = useState("");
     const data = useLocalStore((s) => s.data);
     const timeout = useRef<NodeJS.Timeout>();
@@ -47,11 +49,15 @@ export default function SearchBox() {
                             </span>
                         ) : (
                             fetchSuggestions(text).map((tag, i) => (
-                                <CategoryTag
-                                    title={tag.title}
+                                <div
                                     key={`${tag.title}-${i}`}
-                                    label={tag.label}
-                                />
+                                    className="cursor-pointer"
+                                    onClick={() => {
+                                        router.push(`/view-restaurants`);
+                                    }}
+                                >
+                                    <CategoryTag title={tag.title} label={tag.label} />
+                                </div>
                             ))
                         )
                     ) : (

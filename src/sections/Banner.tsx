@@ -9,8 +9,6 @@ import { useEffect } from "react";
 
 export default function Banner() {
     const selectedTags = useLocalStore((s) => s.selectedTags);
-    const res = useLocalStore((s) => s.restaurants);
-    console.log("TAS=>", { res, selectedTags });
 
     useEffect(() => {
         filterRestaurants();
