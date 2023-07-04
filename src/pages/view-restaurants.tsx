@@ -1,7 +1,7 @@
 import { Badge, Spin } from "antd";
 import Img from "@/components/Img";
 import { genTitle } from "@/lib/utils";
-import useLocalStore, { isValidTag } from "@/store/useLocalStore";
+import useLocalStore from "@/store/useLocalStore";
 import Head from "next/head";
 import { FiClock, FiShoppingBag } from "react-icons/fi";
 import { BsDot } from "react-icons/bs";
@@ -24,9 +24,10 @@ export default function ViewRestaurantPage() {
     useEffect(() => {
         const { name } = router.query;
         if (name) {
-            if (isValidTag(name))
-                setRes(restaurants.filter((r) => r.tags.includes(name))[0] ?? null);
-            else setRes(restaurants.filter((r) => r.title === name)[0] ?? null);
+            const value = restaurants.filter((r) => r.title === name)[0] ?? null;
+            // change to id
+            console.log({ name, value, q: router.query });
+            setRes(value);
         }
     }, [router.query]);
 

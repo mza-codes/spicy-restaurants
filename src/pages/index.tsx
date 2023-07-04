@@ -41,7 +41,7 @@ export default function HomePage(props: HomePageProps) {
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     try {
         const { data } = await axios.get<Restaurant[]>(`${SPICY_API_URL}/restaurants`, {
-            timeout: 4000,
+            timeout: 6000,
         });
         return {
             props: {
