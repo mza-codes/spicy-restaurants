@@ -5,6 +5,8 @@ import CartIcon from "./sub-components/CartIcon";
 import UserAvatar from "./sub-components/UserAvatar";
 import MenuButton from "./sub-components/MenuButton";
 import { routes } from "@/lib/routes";
+import { BiSearchAlt } from "react-icons/bi";
+import { Popover } from "antd";
 
 const navLinks = ["Restaurants", "Deals", "My orders"];
 
@@ -36,10 +38,26 @@ export default function Header() {
                         </Link>
                     ))}
                 </div>
+
                 <CartIcon />
                 <UserAvatar />
                 <div className="flex flex-row center gap-4 md:hidden">
                     <div className="w-[2px] bg-gray.200 h-full min-h-[30px]"></div>
+
+                    <Popover
+                        trigger={"click"}
+                        content={
+                            <div
+                                className={`text-sm capitalize font-semibold col gap-1 ${"fg"}`}
+                            >
+                                <SearchBox />
+                            </div>
+                        }
+                    >
+                        <button className="bg-gray.200 text-gray.400 rounded-2xl p-3">
+                            <BiSearchAlt size={22} />
+                        </button>
+                    </Popover>
                     <MenuButton />
                 </div>
             </div>

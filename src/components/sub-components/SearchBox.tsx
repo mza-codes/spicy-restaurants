@@ -1,39 +1,54 @@
-import useLocalStore, { categories } from "@/store/useLocalStore";
+import useLocalStore, { categories, isValidTag } from "@/store/useLocalStore";
 import { Popover } from "antd";
 import { BiSearch } from "react-icons/bi";
 import CategoryTag from "../CategoryTag";
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { tags } from "@/types";
+
+type SuggestionResponse = {
+    title: tags;
+    label: string;
+};
+
+const fetchSuggestions = (q: string): SuggestionResponse[] => {
+    const data = useLocalStore.getState().data;
+
+    const key = q.toLowerCase();
+    const tags = categories.filter((tag) => tag.includes(key)).map((tag) => tag);
+    const restaurants = data.filter((res) => {
+        return (
+            res.title.toLowerCase().includes(key) ||
+            res.price.includes(key) ||
+            res.time.includes(key)
+        );
+    });
+
+    const result = [
+        ...restaurants.map((res) => ({
+            title: res.tags[0],
+            label: res.title,
+        })),
+        ...tags.map((tag) => ({
+            title: tag,
+            label: tag,
+        })),
+    ];
+
+    return result;
+};
 
 export default function SearchBox() {
     const router = useRouter();
     const [text, setText] = useState("");
-    const data = useLocalStore((s) => s.data);
+    const [suggestions, setSuggestions] = useState<SuggestionResponse[]>([]);
     const timeout = useRef<NodeJS.Timeout>();
 
-    const fetchSuggestions = (q: string) => {
-        const key = q.toLowerCase();
-        const tags = categories.filter((tag) => tag.includes(key)).map((tag) => tag);
-        const restaurants = data.filter((res) => {
-            return (
-                res.title.toLowerCase().includes(key) ||
-                res.price.includes(key) ||
-                res.time.includes(key)
-            );
-        });
-
-        const result = [
-            ...restaurants.map((res) => ({
-                title: res.tags[0],
-                label: res.title,
-            })),
-            ...tags.map((tag) => ({
-                title: tag,
-                label: tag,
-            })),
-        ];
-
-        return result;
+    const getSuggestions = (q: string) => {
+        clearTimeout(timeout.current);
+        timeout.current = setTimeout(() => {
+            setSuggestions(fetchSuggestions(q));
+        }, 400);
     };
 
     return (
@@ -43,17 +58,22 @@ export default function SearchBox() {
             content={
                 <div className="col gap-2">
                     {text?.length > 0 ? (
-                        fetchSuggestions(text).length <= 0 ? (
+                        suggestions.length <= 0 ? (
                             <span className="text-error font-semibold text-xs">
                                 Nothing found!
                             </span>
                         ) : (
-                            fetchSuggestions(text).map((tag, i) => (
+                            suggestions.map((tag, i) => (
                                 <div
                                     key={`${tag.title}-${i}`}
                                     className="cursor-pointer"
                                     onClick={() => {
-                                        router.push(`/view-restaurants`);
+                                        if (isValidTag(tag.label))
+                                            router.push(`/?tag=${tag.label}`);
+                                        else
+                                            router.push(
+                                                `/view-restaurants?name=${tag.label}`
+                                            );
                                     }}
                                 >
                                     <CategoryTag title={tag.title} label={tag.label} />
@@ -76,6 +96,7 @@ export default function SearchBox() {
                     value={text}
                     onChange={(e) => {
                         setText(e.target.value);
+                        getSuggestions(e.target.value);
                     }}
                 />
                 <button className="absolute right-2 top-1 bottom-1 ">

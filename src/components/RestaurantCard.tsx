@@ -5,13 +5,22 @@ import { Badge } from "antd";
 import CategoryTag from "./CategoryTag";
 import { useState } from "react";
 import Img from "./Img";
+import useLocalStore, { addToCart } from "@/store/useLocalStore";
 
 type RestaurantCardProps = {
     card: Restaurant;
 };
 
 export default function RestaurantCard({ card }: RestaurantCardProps) {
-    const [count, setCount] = useState(card.count);
+    const cart = useLocalStore((s) => s.cart);
+    const [count, setCount] = useState(() => {
+        let count = 0;
+        cart.forEach((el) => {
+            const has = el.title === card.title;
+            if (has) count += 1;
+        });
+        return count;
+    });
 
     return (
         <div className="rounded-2xl border-gray.200 border-[1px] col min-w-[260px] sm:min-w-[350px] flex-[30%] h-auto shadow-lg">
@@ -44,6 +53,10 @@ export default function RestaurantCard({ card }: RestaurantCardProps) {
                             }
                         >
                             <button
+                                onClick={() => {
+                                    addToCart(card);
+                                    setCount((c) => c + 1);
+                                }}
                                 className={`hover:text-primary.400 btn-animate cursor-pointer ${
                                     count > 0 ? "text-primary" : "text-primary.200"
                                 }`}

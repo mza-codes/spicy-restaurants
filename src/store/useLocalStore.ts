@@ -6,11 +6,12 @@ const useLocalStore = create<LocalStore>((set, get) => ({
     restaurants: [],
     selectedTags: ["burger", "pizza", "sushi", "desserts"],
     isFetching: true,
+    cart: [],
 
     selectTag(tag, isSelected) {
         if (isSelected) {
             set({
-                selectedTags: [...get().selectedTags.filter((v) => v !== tag)],
+                selectedTags: get().selectedTags.filter((v) => v !== tag),
             });
         } else {
             set({
@@ -37,7 +38,6 @@ const useLocalStore = create<LocalStore>((set, get) => ({
                 }
             }
         }
-
         set({
             restaurants: items,
         });
@@ -49,9 +49,19 @@ const useLocalStore = create<LocalStore>((set, get) => ({
             isFetching: false,
         });
     },
+    addToCart(item) {
+        if (item instanceof Array)
+            set({
+                cart: [...get().cart, ...item],
+            });
+        else
+            set({
+                cart: [...get().cart, item],
+            });
+    },
 }));
 
-export const { selectTag, setSelectedTags, filterRestaurants, populateData } =
+export const { selectTag, setSelectedTags, filterRestaurants, populateData, addToCart } =
     useLocalStore.getState();
 
 export default useLocalStore;
@@ -63,11 +73,13 @@ interface LocalStore {
     restaurants: Restaurant[];
     data: Readonly<Restaurant>[];
     isFetching: boolean;
+    cart: Restaurant[];
 
     populateData: (data: Restaurant[]) => void;
     selectTag: (tag: tags, isSelected: boolean) => void;
     filterRestaurants: () => void;
     setSelectedTags: (tag: tags) => void;
+    addToCart: (item: Restaurant | Restaurant[]) => void;
 }
 
 export const isValidTag = (val: any): val is tags => {

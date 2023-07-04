@@ -1,22 +1,49 @@
 import { Badge, Spin } from "antd";
 import Img from "@/components/Img";
 import { genTitle } from "@/lib/utils";
-import useLocalStore from "@/store/useLocalStore";
+import useLocalStore, { isValidTag } from "@/store/useLocalStore";
 import Head from "next/head";
 import { FiClock, FiShoppingBag } from "react-icons/fi";
 import { BsDot } from "react-icons/bs";
 import CategoryTag from "@/components/CategoryTag";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonV2 } from "@/components/Button";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { Restaurant } from "@/types";
 import ScreenLoader from "@/components/ScreenLoader";
 
 export default function ViewRestaurantPage() {
-    const res = useLocalStore(
-        (s) => s.restaurants[Math.floor(Math.random() * s.restaurants.length) + 1]
-    );
+    const restaurants = useLocalStore((s) => s.restaurants);
+    const [res, setRes] = useState<Restaurant | null>(null);
     const [count, setCount] = useState(res?.count ?? 0);
-    if (!res) return <ScreenLoader />;
+    const [loading, setLoading] = useState(true);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        const { name } = router.query;
+        if (name) {
+            if (isValidTag(name))
+                setRes(restaurants.filter((r) => r.tags.includes(name))[0] ?? null);
+            else setRes(restaurants.filter((r) => r.title === name)[0] ?? null);
+        }
+    }, [router.query]);
+
+    useEffect(() => {
+        setLoading(false);
+    }, [setRes]);
+
+    if (loading) return <ScreenLoader />;
+
+    if (!res)
+        return (
+            <section className="p-4">
+                <span className="p-2 font-semibold text-secondary">
+                    Restaurant Not found!
+                </span>
+            </section>
+        );
     return (
         <>
             <Head>
@@ -108,14 +135,15 @@ export default function ViewRestaurantPage() {
                             </div>
                             <ButtonV2>Submit</ButtonV2>
                         </div>
-                        <div className="flex flex-col-reverse flex-1 m-2 gap-2">
+                        <div className="flex flex-col-reverse flex-1 m-2 gap-3">
                             <span className="text-xl font-semibold text-center">
                                 No Reviews Found!
                             </span>
 
-                            <span className="col gap-4 font-semibold text-center">
-                                <Spin size="large" />
-                                LOADING DATA
+                            <span className="font-semibold text-center">
+                                <Spin className="p-3" size="large" />
+                                <br />
+                                LOADING REVIEWS
                             </span>
 
                             {[1, 2, 3].map((rev, i) => (
