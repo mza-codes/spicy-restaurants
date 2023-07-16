@@ -9,6 +9,7 @@ import { tags } from "@/types";
 type SuggestionResponse = {
     title: tags;
     label: string;
+    id: string;
 };
 
 const fetchSuggestions = (q: string): SuggestionResponse[] => {
@@ -28,10 +29,12 @@ const fetchSuggestions = (q: string): SuggestionResponse[] => {
         ...restaurants.map((res) => ({
             title: res.tags[0],
             label: res.title,
+            id: res._id ?? "",
         })),
         ...tags.map((tag) => ({
             title: tag,
             label: tag,
+            id: tag,
         })),
     ];
 
@@ -71,9 +74,7 @@ export default function SearchBox() {
                                         if (isValidTag(tag.label))
                                             router.push(`/?tag=${tag.label}`);
                                         else
-                                            router.push(
-                                                `/view-restaurants?name=${tag.label}`
-                                            );
+                                            router.push(`/view-restaurants?id=${tag.id}`);
                                     }}
                                 >
                                     <CategoryTag title={tag.title} label={tag.label} />

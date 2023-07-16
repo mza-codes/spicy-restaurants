@@ -10,6 +10,10 @@ export interface Restaurant {
     count: number;
 }
 
+interface Restaurant {
+    _id?: string;
+}
+
 type tags = "pizza" | "burger" | "bbq" | "sushi" | "vegan" | "desserts";
 
 export type LoginData = {

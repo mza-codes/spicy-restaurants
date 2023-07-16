@@ -22,9 +22,13 @@ export default function ViewRestaurantPage() {
     const router = useRouter();
 
     useEffect(() => {
-        const { name } = router.query;
-        if (name) {
-            const value = restaurants.filter((r) => r.title === name)[0] ?? null;
+        const { name, id } = router.query;
+        if (name || id) {
+            const value =
+                restaurants.filter((r) => {
+                    if (name) return r.title === name;
+                    else return r._id == id;
+                })[0] ?? null;
             // change to id
             console.log({ name, value, q: router.query });
             setRes(value);
