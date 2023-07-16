@@ -39,6 +39,10 @@ export default function ViewRestaurantPage() {
         setLoading(false);
     }, [setRes]);
 
+    const addReview = () => {
+        
+    };
+
     if (loading) return <ScreenLoader />;
 
     if (!res)
@@ -138,7 +142,7 @@ export default function ViewRestaurantPage() {
                                     />
                                 ))}
                             </div>
-                            <ButtonV2>Submit</ButtonV2>
+                            <ButtonV2 onClick={addReview} >Submit</ButtonV2>
                         </div>
                         <div className="flex flex-col-reverse flex-1 m-2 gap-3">
                             <span className="text-xl font-semibold text-center">

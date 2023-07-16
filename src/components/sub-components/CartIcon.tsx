@@ -24,9 +24,7 @@ export default function CartIcon() {
                         {cart.map((item) => (
                             <div
                                 onClick={() =>
-                                    route.push(
-                                        `/view-restaurants?id=${item._id}`
-                                    )
+                                    route.push(`/view-restaurants?id=${item._id}`)
                                 }
                                 key={item.img}
                                 className="row gap-2 items-center w-full justify-start hover:bg-gray.200 p-2 rounded-md cursor-pointer"

@@ -8,9 +8,8 @@ export interface Restaurant {
     featured: boolean;
     img: string;
     count: number;
-}
-
-interface Restaurant {
+    
+    // db
     _id?: string;
 }
 
